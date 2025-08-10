@@ -18,5 +18,35 @@ public class WorkoutDTO {
         this.workoutEntries = workoutEntries;
     }
 
-    // getters, setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public List<WorkoutEntryDTO> getWorkoutEntries() {
+        return workoutEntries;
+    }
+
+    public void setWorkoutEntries(List<WorkoutEntryDTO> workoutEntries) {
+        this.workoutEntries = workoutEntries;
+    }
 }
