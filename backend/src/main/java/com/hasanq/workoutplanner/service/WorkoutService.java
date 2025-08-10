@@ -3,12 +3,10 @@ package com.hasanq.workoutplanner.service;
 import com.hasanq.workoutplanner.model.AppUser;
 import com.hasanq.workoutplanner.model.Workout;
 import com.hasanq.workoutplanner.repository.WorkoutRepository;
-import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class WorkoutService {
@@ -24,14 +22,15 @@ public class WorkoutService {
         return workoutRepository.findByUser(user);
     }
 
-    public Optional<Workout> getWorkoutById(Long id, AppUser user) {
-        Optional<Workout> workout = workoutRepository.findById(id);
+    public Workout getWorkoutById(Long id, AppUser user) {
+        Workout workout = workoutRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Workout id=" + id + " not found."));
 
-        if (workout.isPresent() && workout.get().getUser().getId().equals(user.getId())) {
-            return workout;
-        } else {
-            return Optional.empty();
+        if (!workout.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Unauthorized");
         }
+
+        return workout;
     }
 
     public Workout createWorkout(Workout workout, AppUser user) {
@@ -40,35 +39,16 @@ public class WorkoutService {
     }
 
     public Workout updateWorkout(Long id, Workout updatedWorkout, AppUser user) {
-        Optional<Workout> existingWorkout = workoutRepository.findById(id);
+        Workout workout = getWorkoutById(id, user);
 
-        if (existingWorkout.isPresent()) {
-            Workout workout = existingWorkout.get();
+        workout.setName(updatedWorkout.getName());
+        workout.setDate(updatedWorkout.getDate());
 
-            if (!workout.getUser().getId().equals(user.getId())) {
-                throw new RuntimeException("Unauthorized");
-            }
-
-            workout.setName(updatedWorkout.getName());
-            workout.setDate(updatedWorkout.getDate());
-
-            return workoutRepository.save(workout);
-        } else {
-            throw new RuntimeException("Workout id=" + id + " not found.");
-        }
+        return workoutRepository.save(workout);
     }
 
     public void deleteWorkoutById(Long id, AppUser user) {
-        Optional<Workout> workout = workoutRepository.findById(id);
-
-        if (workout.isPresent()) {
-            if (!workout.get().getUser().getId().equals(user.getId())) {
-                throw new RuntimeException("Unauthorized");
-            }
-
-            workoutRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("Workout id=" + id + " not found.");
-        }
+        Workout workout = getWorkoutById(id, user);
+        workoutRepository.delete(workout);
     }
 }
