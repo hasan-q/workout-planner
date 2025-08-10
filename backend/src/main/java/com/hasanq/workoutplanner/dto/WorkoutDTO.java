@@ -7,15 +7,15 @@ public class WorkoutDTO {
     private Long id;
     private String name;
     private LocalDate date;
-    private List<WorkoutExerciseDTO> workoutExercises;
+    private List<WorkoutEntryDTO> workoutEntries;
 
     public WorkoutDTO() {}
 
-    public WorkoutDTO(Long id, String name, LocalDate date, List<WorkoutExerciseDTO> workoutExercises) {
+    public WorkoutDTO(Long id, String name, LocalDate date, List<WorkoutEntryDTO> workoutEntries) {
         this.id = id;
         this.name = name;
         this.date = date;
-        this.workoutExercises = workoutExercises;
+        this.workoutEntries = workoutEntries;
     }
 
     // getters, setters

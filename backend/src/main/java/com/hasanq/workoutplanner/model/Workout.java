@@ -20,5 +20,5 @@ public class Workout {
     private AppUser user;
 
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL)
-    private List<WorkoutExercise> workoutExercises;
+    private List<WorkoutEntry> workoutEntries;
 }

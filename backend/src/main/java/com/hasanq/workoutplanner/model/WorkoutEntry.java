@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-public class WorkoutExercise {
+public class WorkoutEntry {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +20,6 @@ public class WorkoutExercise {
 
     private String notes;
 
-    @OneToMany(mappedBy = "workoutExercise", cascade = CascadeType.ALL)
-    private List<WorkoutSet> sets;
+    @OneToMany(mappedBy = "workoutEntry", cascade = CascadeType.ALL)
+    private List<ExerciseSet> sets;
 }

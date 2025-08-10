@@ -2,7 +2,7 @@ package com.hasanq.workoutplanner.model;
 
 import jakarta.persistence.*;
 
-public class WorkoutSet {
+public class ExerciseSet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +13,6 @@ public class WorkoutSet {
     private double weight;
 
     @ManyToOne
-    @JoinColumn(name = "workout_exercise_id", nullable = false)
-    private WorkoutExercise workoutExercise;
+    @JoinColumn(name = "workout_entry_id", nullable = false)
+    private WorkoutEntry workoutEntry;
 }
