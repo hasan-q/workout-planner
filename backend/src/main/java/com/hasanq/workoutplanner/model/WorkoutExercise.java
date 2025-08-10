@@ -20,6 +20,6 @@ public class WorkoutExercise {
 
     private String notes;
 
-    @OneToMany(mappedBy = "workoutExercises", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "workoutExercise", cascade = CascadeType.ALL)
     private List<WorkoutSet> sets;
 }
