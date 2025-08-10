@@ -1,6 +1,5 @@
 package com.hasanq.workoutplanner.service;
 
-import com.hasanq.workoutplanner.model.AppUser;
 import com.hasanq.workoutplanner.model.Workout;
 import com.hasanq.workoutplanner.model.WorkoutEntry;
 import com.hasanq.workoutplanner.repository.WorkoutEntryRepository;

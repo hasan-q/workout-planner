@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ExerciseSetService {
@@ -19,19 +18,27 @@ public class ExerciseSetService {
         this.exerciseSetRepository = exerciseSetRepository;
     }
 
-    public List<ExerciseSet> getAllExerciseSets(WorkoutEntry workoutEntry) {
+    public List<ExerciseSet> getAllSetsByWorkoutEntry(WorkoutEntry workoutEntry) {
         return exerciseSetRepository.findByWorkoutEntry(workoutEntry);
     }
 
-    public Optional<ExerciseSet> getExerciseSetById(Long id) {
-        return exerciseSetRepository.findById(id);
+    public ExerciseSet getSetById(Long id) {
+        return exerciseSetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Exercise set id=" + id + " not found."));
     }
 
-    public ExerciseSet saveExerciseSet(ExerciseSet exerciseSet) {
+    public ExerciseSet createSet(ExerciseSet exerciseSet) {
         return exerciseSetRepository.save(exerciseSet);
     }
 
-    public ExerciseSet updateExerciseSetById(Long id, ExerciseSet exerciseSet) {
+    public ExerciseSet updateSet(ExerciseSet existingSet, ExerciseSet updatedSet) {
+        existingSet.setSetNumber(updatedSet.getSetNumber());
+        existingSet.setReps(updatedSet.getReps());
+        existingSet.setWeight(updatedSet.getWeight());
+        return exerciseSetRepository.save(existingSet);
+    }
 
+    public void deleteSet(ExerciseSet exerciseSet) {
+        exerciseSetRepository.delete(exerciseSet);
     }
 }
