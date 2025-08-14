@@ -4,17 +4,16 @@ import com.hasanq.workoutplanner.dto.ExerciseDTO;
 import com.hasanq.workoutplanner.dto.ExerciseSetDTO;
 import com.hasanq.workoutplanner.dto.WorkoutDTO;
 import com.hasanq.workoutplanner.dto.WorkoutEntryDTO;
+import com.hasanq.workoutplanner.model.AppUser;
 import com.hasanq.workoutplanner.model.ExerciseSet;
 import com.hasanq.workoutplanner.model.Workout;
 import com.hasanq.workoutplanner.model.WorkoutEntry;
+import com.hasanq.workoutplanner.security.SecurityHelper;
 import com.hasanq.workoutplanner.service.ExerciseSetService;
 import com.hasanq.workoutplanner.service.WorkoutEntryService;
 import com.hasanq.workoutplanner.service.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +38,47 @@ public class WorkoutController {
         this.exerciseSetService = exerciseSetService;
     }
 
+    @GetMapping
+    public List<WorkoutDTO> getAllWorkouts() {
+        AppUser user = SecurityHelper.getAuthenticatedUser();
+        return workoutService.getAllWorkoutsByUser(user)
+                .stream().map(this::mapWorkoutToDTO)
+                .collect(Collectors.toList());
+    }
 
+    @GetMapping("/{id}")
+    public WorkoutDTO getWorkoutById(@PathVariable Long id) {
+        AppUser user = SecurityHelper.getAuthenticatedUser();
+        Workout workout = workoutService.getWorkoutById(id, user);
+        return mapWorkoutToDTO(workout);
+    }
+
+    @PostMapping
+    public WorkoutDTO createWorkout(@RequestBody WorkoutDTO dto) {
+        AppUser user = SecurityHelper.getAuthenticatedUser();
+        Workout workout = new Workout();
+        workout.setName(dto.getName());
+        workout.setDate(dto.getDate());
+        Workout savedWorkout = workoutService.createWorkout(workout, user);
+        return mapWorkoutToDTO(savedWorkout);
+    }
+
+    @PutMapping("/{id}")
+    public WorkoutDTO updateWorkout(@PathVariable Long id, @RequestBody WorkoutDTO dto) {
+        AppUser user = SecurityHelper.getAuthenticatedUser();
+        Workout updatedWorkout = new Workout();
+        updatedWorkout.setName(dto.getName());
+        updatedWorkout.setDate(dto.getDate());
+
+        Workout workout = workoutService.updateWorkout(id, updatedWorkout, user);
+        return mapWorkoutToDTO(workout);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteWorkout(@PathVariable Long id) {
+        AppUser user = SecurityHelper.getAuthenticatedUser();
+        workoutService.deleteWorkoutById(id, user);
+    }
 
     // Helper methods
 
