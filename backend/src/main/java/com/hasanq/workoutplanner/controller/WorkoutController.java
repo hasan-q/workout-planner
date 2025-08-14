@@ -106,21 +106,16 @@ public class WorkoutController {
     @PutMapping("/entries/{id}")
     public WorkoutEntryDTO updateWorkoutEntry(@PathVariable Long id, @RequestBody WorkoutEntryDTO dto) {
 
-        WorkoutEntry existingEntry = workoutEntryService.getEntryById(id);
-        WorkoutEntry updatedEntry = new WorkoutEntry();
+        WorkoutEntry entry = workoutEntryService.getEntryById(id);
 
-        updatedEntry.setNotes(dto.getNotes());
+        entry.setNotes(dto.getNotes());
         if (dto.getExercise() != null) {
             AppUser user = SecurityHelper.getAuthenticatedUser();
             Exercise exercise = exerciseService.getExerciseById(dto.getExercise().getId(), user);
-
-            /*
-            Exercise exercise = new Exercise();
-            exercise.setId(dto.getExercise().getId());
-            updatedEntry.setExercise(exercise);*/
+            entry.setExercise(exercise);
         }
 
-        WorkoutEntry savedEntry = workoutEntryService.updateWorkoutEntry(existingEntry, updatedEntry);
+        WorkoutEntry savedEntry = workoutEntryService.updateWorkoutEntry(entry);
         return mapWorkoutEntryToDTO(savedEntry);
     }
 

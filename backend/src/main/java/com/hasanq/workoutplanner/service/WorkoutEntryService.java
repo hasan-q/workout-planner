@@ -32,11 +32,8 @@ public class WorkoutEntryService {
         return workoutEntryRepository.save(workoutEntry);
     }
 
-    public WorkoutEntry updateWorkoutEntry(WorkoutEntry existingEntry, WorkoutEntry updatedEntry) {
-        existingEntry.setExercise(updatedEntry.getExercise());
-        existingEntry.setSets(updatedEntry.getSets());
-        existingEntry.setNotes(updatedEntry.getNotes());
-        return workoutEntryRepository.save(existingEntry);
+    public WorkoutEntry updateWorkoutEntry(WorkoutEntry workoutEntryToUpdate) {
+        return workoutEntryRepository.save(workoutEntryToUpdate);
     }
 
     public void deleteWorkoutEntry(WorkoutEntry workoutEntry) {
