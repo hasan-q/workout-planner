@@ -37,13 +37,8 @@ public class ExerciseService {
         return exerciseRepository.save(exercise);
     }
 
-    public Exercise updateExercise(Long id, Exercise updatedExercise, AppUser user) {
-        Exercise existingExercise = getExerciseById(id, user);
-
-        existingExercise.setName(updatedExercise.getName());
-        existingExercise.setMuscleGroup(updatedExercise.getMuscleGroup());
-
-        return exerciseRepository.save(existingExercise);
+    public Exercise updateExercise(Exercise exerciseToUpdate) {
+        return exerciseRepository.save(exerciseToUpdate);
     }
 
     public void deleteExercise(Long id, AppUser user) {

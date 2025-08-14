@@ -52,11 +52,12 @@ public class ExerciseController {
     @PutMapping("/{id}")
     public ExerciseDTO updateExercise(@PathVariable Long id, @RequestBody ExerciseDTO dto) {
         AppUser user = SecurityHelper.getAuthenticatedUser();
-        Exercise updatedExercise = new Exercise();
-        updatedExercise.setName(dto.getName());
-        updatedExercise.setMuscleGroup(dto.getMuscleGroup());
+        Exercise exercise = exerciseService.getExerciseById(id, user);
 
-        Exercise savedExercise = exerciseService.updateExercise(id, updatedExercise, user);
+        exercise.setName(dto.getName());
+        exercise.setMuscleGroup(dto.getMuscleGroup());
+
+        Exercise savedExercise = exerciseService.updateExercise(exercise);
         return mapToDto(savedExercise);
     }
 
