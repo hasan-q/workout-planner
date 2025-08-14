@@ -143,6 +143,24 @@ public class WorkoutController {
         return mapExerciseSetToDTO(savedSet);
     }
 
+    @PutMapping("/sets/{id}")
+    public ExerciseSetDTO updateExerciseSet(@PathVariable Long id, @RequestBody ExerciseSetDTO dto) {
+        ExerciseSet existingSet = exerciseSetService.getSetById(id);
+
+        existingSet.setSetNumber(dto.getSetNumber());
+        existingSet.setReps(dto.getReps());
+        existingSet.setWeight(dto.getWeight());
+
+        ExerciseSet savedSet = exerciseSetService.updateSet(existingSet);
+        return mapExerciseSetToDTO(savedSet);
+    }
+
+    @DeleteMapping("/sets/{id}")
+    public void deleteExerciseSet(@PathVariable Long id) {
+        ExerciseSet setToDelete = exerciseSetService.getSetById(id);
+        exerciseSetService.deleteSet(setToDelete);
+    }
+
     // Helper methods
 
     private WorkoutDTO mapWorkoutToDTO(Workout workout) {
