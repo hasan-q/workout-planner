@@ -38,13 +38,8 @@ public class WorkoutService {
         return workoutRepository.save(workout);
     }
 
-    public Workout updateWorkout(Long id, Workout updatedWorkout, AppUser user) {
-        Workout workout = getWorkoutById(id, user);
-
-        workout.setName(updatedWorkout.getName());
-        workout.setDate(updatedWorkout.getDate());
-
-        return workoutRepository.save(workout);
+    public Workout updateWorkout(Workout workoutToUpdate) {
+        return workoutRepository.save(workoutToUpdate);
     }
 
     public void deleteWorkoutById(Long id, AppUser user) {

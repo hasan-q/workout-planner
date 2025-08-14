@@ -69,12 +69,13 @@ public class WorkoutController {
     @PutMapping("/{id}")
     public WorkoutDTO updateWorkout(@PathVariable Long id, @RequestBody WorkoutDTO dto) {
         AppUser user = SecurityHelper.getAuthenticatedUser();
-        Workout updatedWorkout = new Workout();
-        updatedWorkout.setName(dto.getName());
-        updatedWorkout.setDate(dto.getDate());
+        Workout workout = workoutService.getWorkoutById(id, user);
 
-        Workout workout = workoutService.updateWorkout(id, updatedWorkout, user);
-        return mapWorkoutToDTO(workout);
+        workout.setName(dto.getName());
+        workout.setDate(dto.getDate());
+
+        Workout savedWorkout = workoutService.updateWorkout(workout);
+        return mapWorkoutToDTO(savedWorkout);
     }
 
     @DeleteMapping("/{id}")
