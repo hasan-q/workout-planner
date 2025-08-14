@@ -119,6 +119,14 @@ public class WorkoutController {
         return mapWorkoutEntryToDTO(savedEntry);
     }
 
+    @DeleteMapping("/entries/{id}")
+    public void deleteWorkoutEntry(@PathVariable Long id) {
+        WorkoutEntry entryToBeDeleted = workoutEntryService.getEntryById(id);
+        workoutEntryService.deleteWorkoutEntry(entryToBeDeleted);
+    }
+
+    // Exercise Sets
+
     // Helper methods
 
     private WorkoutDTO mapWorkoutToDTO(Workout workout) {
