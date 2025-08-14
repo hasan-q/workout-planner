@@ -127,6 +127,22 @@ public class WorkoutController {
 
     // Exercise Sets
 
+    @PostMapping("/entries/{id}/sets")
+    public ExerciseSetDTO createExerciseSet(@PathVariable Long id, @RequestBody ExerciseSetDTO dto) {
+
+        // ID in the path is a WorkoutEntry id
+        WorkoutEntry entry = workoutEntryService.getEntryById(id);
+        ExerciseSet set = new ExerciseSet();
+
+        set.setWorkoutEntry(entry);
+        set.setWeight(dto.getWeight());
+        set.setReps(dto.getReps());
+        set.setSetNumber(dto.getSetNumber());
+
+        ExerciseSet savedSet = exerciseSetService.createSet(set);
+        return mapExerciseSetToDTO(savedSet);
+    }
+
     // Helper methods
 
     private WorkoutDTO mapWorkoutToDTO(Workout workout) {

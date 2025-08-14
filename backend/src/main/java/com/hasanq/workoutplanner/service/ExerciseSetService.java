@@ -31,11 +31,8 @@ public class ExerciseSetService {
         return exerciseSetRepository.save(exerciseSet);
     }
 
-    public ExerciseSet updateSet(ExerciseSet existingSet, ExerciseSet updatedSet) {
-        existingSet.setSetNumber(updatedSet.getSetNumber());
-        existingSet.setReps(updatedSet.getReps());
-        existingSet.setWeight(updatedSet.getWeight());
-        return exerciseSetRepository.save(existingSet);
+    public ExerciseSet updateSet(ExerciseSet setToBeUpdated) {
+        return exerciseSetRepository.save(setToBeUpdated);
     }
 
     public void deleteSet(ExerciseSet exerciseSet) {
