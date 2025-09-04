@@ -13,6 +13,7 @@ import com.hasanq.workoutplanner.service.WorkoutService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,7 +62,7 @@ public class WorkoutController {
         AppUser user = SecurityHelper.getAuthenticatedUser();
         Workout workout = new Workout();
         workout.setName(dto.getName());
-        workout.setDate(dto.getDate());
+        workout.setDate(dto.getDate() != null ? dto.getDate() : LocalDate.now());
         Workout savedWorkout = workoutService.createWorkout(workout, user);
         return mapWorkoutToDTO(savedWorkout);
     }
@@ -72,7 +73,9 @@ public class WorkoutController {
         Workout workout = workoutService.getWorkoutById(id, user);
 
         workout.setName(dto.getName());
-        workout.setDate(dto.getDate());
+        if (dto.getDate() != null) {
+            workout.setDate(dto.getDate());
+        }
 
         Workout savedWorkout = workoutService.updateWorkout(workout);
         return mapWorkoutToDTO(savedWorkout);
