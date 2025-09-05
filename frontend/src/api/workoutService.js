@@ -24,3 +24,31 @@ export async function deleteWorkout(id) {
 
 // Workout Entries
 
+export async function createWorkoutEntry(workoutId, { exerciseId, notes }) {
+    const body = {
+        exercise: {
+            id: exerciseId
+        },
+        notes
+    };
+
+    const response = await api.post(`/workouts/${workoutId}/entries`, body);
+    return response.data;
+}
+
+export async function updateWorkoutEntry(workoutId, entryId, { exerciseId, notes }) {
+    const body = {
+        exercise: {
+            id: exerciseId
+        },
+        notes
+    };
+
+    const response = await api.put(`/workouts/${workoutId}/entries/${entryId}`, body);
+    return response.data;
+}
+
+export async function deleteWorkoutEntry(workoutId, entryId) {
+    const response = await api.delete(`/workouts/${workoutId}/entries/${entryId}`);
+    return response.data;
+}
