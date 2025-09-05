@@ -1,5 +1,5 @@
 import api from "./api";
-import { saveTokens, getRefreshToken } from "./tokenService";
+import { saveTokens, getRefreshToken, clearTokens } from "./tokenService";
 
 export async function login({ email, password }) {
     const response = await api.post("/auth/login", { email, password });
@@ -35,4 +35,8 @@ export async function refreshToken() {
     }
 
     return response.data;
+}
+
+export function logout() {
+    clearTokens();
 }
