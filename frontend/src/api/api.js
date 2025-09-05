@@ -7,10 +7,12 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(config => {
-    const token = getAccessToken();
+    if (!config.headers.skipAuth) {
+        const token = getAccessToken();
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
     }
     return config;
 });
