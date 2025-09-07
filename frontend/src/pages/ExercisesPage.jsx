@@ -59,7 +59,7 @@ export default function ExercisesPage() {
                     onDelete={handleDeleteExercise}
                 />
             )}
-            
+
             {selectedExercise && (
                 <ExerciseForm
                     exercise={selectedExercise}
