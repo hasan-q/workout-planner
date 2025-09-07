@@ -22,9 +22,9 @@ export default function RegisterPage() {
 
     return (
         <form onSubmit={onSubmit}>
-            <input type="text" name="username" required />
-            <input type="email" name="email" required />
-            <input type="password" name="password" required />
+            <input type="text" name="username" placeholder="username" required />
+            <input type="email" name="email" placeholder="email" required />
+            <input type="password" name="password" placeholder="password" required />
             <button type="submit">Sign Up</button>
         </form>
     )
