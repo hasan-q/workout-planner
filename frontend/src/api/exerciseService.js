@@ -27,5 +27,4 @@ export async function updateExercise(exerciseId, { name, muscleGroup }) {
 
 export async function deleteExercise(exerciseId) {
     const response = await api.delete(`/exercises/${exerciseId}`);
-    return response.data;
 }
