@@ -6,7 +6,7 @@ import ExercisesList from "../components/ExercisesList";
 export default function ExercisesPage() {
     const [exercises, setExercises] = useState({});
     const [loading, setLoading] = useState(true);
-    const [selectedExercise, setSelectedExercises] = useState(null);
+    const [selectedExercise, setSelectedExercise] = useState(null);
 
     useEffect(
         () => {
@@ -48,7 +48,25 @@ export default function ExercisesPage() {
 
     return (
         <div className="Exercises">
+            <ExerciseForm onSubmit={handleAddExercise} />
+
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <ExercisesList
+                    exercises={exercises}
+                    onEdit={setSelectedExercise}
+                    onDelete={handleDeleteExercise}
+                />
+            )}
             
+            {selectedExercise && (
+                <ExerciseForm
+                    exercise={selectedExercise}
+                    onSubmit={handleUpdateExercise}
+                    onClose={() => setSelectedExercise(null)}
+                />
+            )}
         </div>
     );
 }
