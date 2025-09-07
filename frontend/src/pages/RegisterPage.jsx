@@ -27,5 +27,5 @@ export default function RegisterPage() {
             <input type="password" name="password" placeholder="password" required />
             <button type="submit">Sign Up</button>
         </form>
-    )
+    );
 }
