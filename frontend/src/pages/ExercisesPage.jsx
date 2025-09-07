@@ -37,11 +37,13 @@ export default function ExercisesPage() {
                 return exercise;
             }
         });
-        setExercises(updateExercise);
+        setExercises(updatedExercises);
     };
 
     const handleDeleteExercise = async (id) => {
         await deleteExercise(id);
+        const updatedExercises = exercises.filter((exercise) => exercise.id !== id);
+        setExercises(updatedExercises);
     };
 
     return (
