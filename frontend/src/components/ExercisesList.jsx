@@ -13,7 +13,7 @@ export default function ExercisesList({ exercises, onEdit, onDelete }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {exercises.map((exercise) => {
+                        {exercises.map((exercise) => (
                             <tr key={exercise.id}>
                                 <td>{exercise.name}</td>
                                 <td>{exercise.muscleGroup}</td>
@@ -22,7 +22,7 @@ export default function ExercisesList({ exercises, onEdit, onDelete }) {
                                     <button onClick={() => onDelete(exercise.id)}></button>
                                 </td>
                             </tr>
-                        })}
+                        ))}
                     </tbody>
                 </table>
             )}

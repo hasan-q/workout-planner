@@ -4,7 +4,7 @@ import ExerciseForm from "../components/ExercisesForm";
 import ExercisesList from "../components/ExercisesList";
 
 export default function ExercisesPage() {
-    const [exercises, setExercises] = useState({});
+    const [exercises, setExercises] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedExercise, setSelectedExercise] = useState(null);
 
