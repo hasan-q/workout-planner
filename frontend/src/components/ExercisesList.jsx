@@ -1,4 +1,4 @@
-export default function ExercisesList({ exercises, onEdit, onDelete }) {
+export default function ExercisesList({ exercises = [], onEdit, onDelete }) {
     return (
         <div>
             {exercises.length === 0 ? (
