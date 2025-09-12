@@ -19,7 +19,6 @@ export async function updateWorkout(id, { name, date }) {
 
 export async function deleteWorkout(id) {
     const response = await api.delete(`/workouts/${id}`);
-    return response.data;
 }
 
 // Workout Entries
