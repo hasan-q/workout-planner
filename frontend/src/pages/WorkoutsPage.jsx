@@ -1,4 +1,5 @@
-import { useState, useEffect, useNavigate } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getWorkouts, createWorkout, updateWorkout, deleteWorkout, createWorkoutEntry, createExerciseSet } from "../api/workoutService";
 import WorkoutTemplateForm from "../components/templates/WorkoutTemplateForm";
 import WorkoutTemplateList from "../components/templates/WorkoutTemplateList";
@@ -6,7 +7,6 @@ import WorkoutTemplateList from "../components/templates/WorkoutTemplateList";
 export default function WorkoutsPage() {
     const [templates, setTemplates] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [selectedTemplate, setSelectedTemplate] = useState(null);
 
     const navigate = useNavigate();
 
@@ -32,17 +32,8 @@ export default function WorkoutsPage() {
     };
 
     const handleUpdateTemplate = async (templateData) => {
-        // this needs to be changed
-        /*
-        const res = await updateWorkout(templateData.id, templateData);
-        const updatedTemplates = templates.map((template) => {
-            if (template.id === res.id) {
-                return res;
-            } else {
-                return template;
-            }
-        });
-        setTemplates(updatedTemplates);*/
+        // navigate to the workout detail page to edit a workout template
+        navigate(`/workouts/${templateData.id}`);
     }
 
     const handleDeleteTemplate = async (id) => {
@@ -79,7 +70,21 @@ export default function WorkoutsPage() {
         navigate(`/workouts/${newWorkout.id}`);
     };
 
-
-
-
+    return (
+        <div className="Workouts">
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    <WorkoutTemplateForm onSubmit={handleCreateTemplate} />
+                    <WorkoutTemplateList
+                        templates={templates}
+                        onStart={handleStartWorkout}
+                        onEdit={handleUpdateTemplate}
+                        onDelete={handleDeleteTemplate}
+                    />
+                </>
+            )}
+        </div>
+    );
 }
