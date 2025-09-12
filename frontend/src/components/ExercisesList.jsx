@@ -1,6 +1,5 @@
 
 
-
 //try removing exercises = [] ***************
 
 export default function ExercisesList({ exercises = [], onEdit, onDelete }) {
