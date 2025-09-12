@@ -24,5 +24,26 @@ export default function WorkoutsPage() {
         }, []
     );
 
-    
+    const handleCreateTemplate = async (templateData) => {
+        const res = await createWorkout(templateData);
+        setTemplates([...templates, res]);
+    };
+
+    const handleUpdateTemplate = async (templateData) => {
+        const res = await updateWorkout(templateData.id, templateData);
+        const updatedTemplates = templates.map((template) => {
+            if (template.id === res.id) {
+                return res;
+            } else {
+                return template;
+            }
+        });
+        setTemplates(updatedTemplates);
+    }
+
+    const handleDeleteTemplate = async (id) => {
+        await deleteWorkout(id);
+        const updatedTemplates = templates.filter((template) => template.id !== id);
+        setTemplates(updatedTemplates);
+    }
 }
