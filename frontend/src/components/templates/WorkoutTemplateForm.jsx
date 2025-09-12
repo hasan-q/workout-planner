@@ -1,7 +1,22 @@
 import { useState, useEffect } from "react";
 
-export default function WorkoutTemplateForm({ onSubmit, onClose }) {
+export default function WorkoutTemplateForm({ initialWorkout, onSubmit, onClose }) {
     const [name, setName] = useState("");
+
+    let buttonText;
+    if (initialWorkout) {
+        buttonText = "Update Template";
+    } else {
+        buttonText = "Create Template";
+    }
+
+    useEffect(
+        () => {
+            if (initialWorkout) {
+                setName(initialWorkout.name);
+            }
+        }, [initialWorkout]
+    );
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,8 +34,10 @@ export default function WorkoutTemplateForm({ onSubmit, onClose }) {
                 onChange={(e) => setName(e.target.value)}
                 required
             />
-            <button type="submit">Create Template</button>
-            <button type="button" onClick={onClose}>Cancel</button>
+            <button type="submit">{buttonText}</button>
+            {initialWorkout ? (
+                <button type="button" onClick={onClose}>Cancel</button>
+            ) : null}
         </form>
     );
 }
