@@ -18,6 +18,7 @@ export default function App() {
             <Route element={<ProtectedRoutes />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/exercises" element={<ExercisesPage />} />
+                <Route path="/workouts" element={<WorkoutsPage />} />
             </Route>
         </Routes>
     );

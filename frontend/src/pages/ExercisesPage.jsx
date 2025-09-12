@@ -21,7 +21,7 @@ export default function ExercisesPage() {
                     console.log("Exercises from exercises, setExercises:", exercises);
                     setExercises(res);
                 } catch (error) {
-                    console.error(error)
+                    console.error(error);
                 } finally {
                     setLoading(false);
                 }
