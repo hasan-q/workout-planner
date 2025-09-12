@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useNavigate } from "react";
 import { getWorkouts, createWorkout, updateWorkout, deleteWorkout, createWorkoutEntry, createExerciseSet } from "../api/workoutService";
 import WorkoutTemplateForm from "../components/templates/WorkoutTemplateForm";
 import WorkoutTemplateList from "../components/templates/WorkoutTemplateList";
@@ -7,6 +7,8 @@ export default function WorkoutsPage() {
     const [templates, setTemplates] = useState([]);
     const [loading, setLoading] = useState(true);
     const [selectedTemplate, setSelectedTemplate] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(
         () => {
@@ -30,6 +32,8 @@ export default function WorkoutsPage() {
     };
 
     const handleUpdateTemplate = async (templateData) => {
+        // this needs to be changed
+        /*
         const res = await updateWorkout(templateData.id, templateData);
         const updatedTemplates = templates.map((template) => {
             if (template.id === res.id) {
@@ -38,7 +42,7 @@ export default function WorkoutsPage() {
                 return template;
             }
         });
-        setTemplates(updatedTemplates);
+        setTemplates(updatedTemplates);*/
     }
 
     const handleDeleteTemplate = async (id) => {
@@ -71,6 +75,8 @@ export default function WorkoutsPage() {
                 });
             }
         }
+
+        navigate(`/workouts/${newWorkout.id}`);
     };
 
 
