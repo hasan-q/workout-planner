@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getWorkouts, createWorkout, updateWorkout, deleteWorkout, createWorkoutEntry, createExerciseSet } from "../api/workoutService";
+import { getWorkouts, createWorkout, deleteWorkout, createWorkoutEntry, createExerciseSet } from "../api/workoutService";
 import WorkoutTemplateForm from "../components/templates/WorkoutTemplateForm";
 import WorkoutTemplateList from "../components/templates/WorkoutTemplateList";
 
