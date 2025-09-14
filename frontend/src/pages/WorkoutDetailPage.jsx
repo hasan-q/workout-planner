@@ -46,5 +46,40 @@ export default function WorkoutDetailPage() {
         setWorkout(updatedWorkout);
     };
 
+    const handleCreateEntry = async (exerciseId, notes) => {
+        const newEntry = await createWorkoutEntry(workoutId, { exerciseId, notes });
+        setWorkout({
+            ...workout,
+            workoutEntries: [...workout.workoutEntries, newEntry]
+        });
+    }
 
+    const handleUpdateEntry = async (entryId, exerciseId, notes) => {
+        try {
+            const updatedEntry = await updateWorkoutEntry(workoutId, entryId, { exerciseId, notes });
+
+            setWorkout(prevWorkout => ({
+                ...prevWorkout,
+                workoutEntries: prevWorkout.workoutEntries.map(entry => entry.id === entryId ? updatedEntry : entry)
+            }));
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const handleDeleteEntry = async (entryId) => {
+        await deleteWorkoutEntry(workoutId, entryId);
+        setWorkout(prevWorkout => ({
+            ...prevWorkout,
+            workoutEntries: prevWorkout.workoutEntries.filter(entry => entry.id !== entryId)
+        }));
+    }
+
+    const handleCreateSet = async (entryId) => {
+        try {
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }
