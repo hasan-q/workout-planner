@@ -1,4 +1,7 @@
 export default function WorkoutEntry({ entry, exercises, onUpdate, onDelete, onCreateSet, onUpdateSet, onDeleteSet }) {
+    const defaultReps = 8;
+    const defaultWeight = 45;
+
     return (
         <div className="workout-entry">
             <label>
@@ -19,7 +22,28 @@ export default function WorkoutEntry({ entry, exercises, onUpdate, onDelete, onC
             <button onClick={() => onDelete(entry.id)}>Delete Planned Exercise</button>
 
             <h3>Sets</h3>
-            
+            {entry.sets.map(set => (
+                <div key={set.id}>
+                    <input
+                        type="number"
+                        value={set.setNumber}
+                        onChange={(e) => onUpdateSet(entry.id, e.target.value, set.reps, set.weight)}
+                    />
+                    <input
+                        type="number"
+                        value={set.reps}
+                        onChange={(e) => onUpdateSet(entry.id, set.setNumber, e.target.value, set.weight)}
+                    />
+                    <input
+                        type="number"
+                        value={set.weight}
+                        onChange={(e) => onUpdateSet(entry.id, set.setNumber, set.reps, e.target.value)}
+                    />
+                    <button onClick={() => onDeleteSet(entry.id, set.id)}>Delete Set</button>
+                </div>
+            ))}
+
+            <button onClick={() => onCreateSet(entry.id, entry.sets.length + 1, defaultReps, defaultWeight)}>+ Add Set</button>
         </div>
     );
 }
