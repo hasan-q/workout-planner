@@ -165,7 +165,6 @@ export default function WorkoutDetailPage() {
                             key={entry.id}
                             entry={entry}
                             exercises={exercises}
-                            onCreate={handleCreateEntry}
                             onUpdate={handleUpdateEntry}
                             onDelete={handleDeleteEntry}
                             onCreateSet={handleCreateSet}
