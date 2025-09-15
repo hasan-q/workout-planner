@@ -36,6 +36,8 @@ export default function WorkoutDetailPage() {
             })();
         }, [workoutId]
     );
+    
+    // Workouts
 
     const handleUpdateWorkout = async () => {
         const data = {
@@ -46,13 +48,15 @@ export default function WorkoutDetailPage() {
         setWorkout(updatedWorkout);
     };
 
+    // Workout Entries
+
     const handleCreateEntry = async (exerciseId, notes) => {
         const newEntry = await createWorkoutEntry(workoutId, { exerciseId, notes });
         setWorkout({
             ...workout,
             workoutEntries: [...workout.workoutEntries, newEntry]
         });
-    }
+    };
 
     const handleUpdateEntry = async (entryId, exerciseId, notes) => {
         try {
@@ -65,7 +69,7 @@ export default function WorkoutDetailPage() {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     const handleDeleteEntry = async (entryId) => {
         await deleteWorkoutEntry(workoutId, entryId);
@@ -73,11 +77,61 @@ export default function WorkoutDetailPage() {
             ...prevWorkout,
             workoutEntries: prevWorkout.workoutEntries.filter(entry => entry.id !== entryId)
         }));
-    }
+    };
 
-    const handleCreateSet = async (entryId) => {
+    // Exercise Sets
+
+    const handleCreateSet = async (entryId, setNumber, reps, weight) => {
         try {
+            const newSet = await createExerciseSet(entryId, {
+                setNumber: setNumber,
+                reps: reps,
+                weight: weight
+            });
 
+            setWorkout(prevWorkout => ({
+                ...prevWorkout,
+                workoutEntries: prevWorkout.workoutEntries.map(entry => 
+                  entry.id === entryId ? { ...entry, sets: [...entry.sets, newSet] } : entry)
+            }));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleUpdateSet = async (entryId, setId, setNumber, reps, weight) => {
+        try {
+            const updatedSet = await updateExerciseSet(setId, {
+                setNumber: setNumber,
+                reps: reps,
+                weight: weight
+            });
+
+            setWorkout(prevWorkout => ({
+                ...prevWorkout,
+                workoutEntries: prevWorkout.workoutEntries.map(entry => entry.id === entryId ? { 
+                    ...entry, 
+                    sets: entry.sets.map(set => set.id === setId ? updatedSet : set) 
+                } : entry 
+                )
+            }))
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleDeleteSet = async (entryId, setId) => {
+        try {
+            await deleteExerciseSet(setId);
+
+            setWorkout(prevWorkout => ({
+                ...prevWorkout,
+                workoutEntries: prevWorkout.workoutEntries.map(entry => entry.id === entryId ? {
+                    ...entry,
+                    sets: entry.sets.filter(set => set.id !== setId)
+                } : entry
+                )
+            }));
         } catch (error) {
             console.error(error);
         }
