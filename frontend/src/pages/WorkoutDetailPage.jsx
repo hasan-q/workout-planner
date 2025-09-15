@@ -12,6 +12,7 @@ import {
 } from "../api/workoutService";
 import { getExercises } from "../api/exerciseService";
 import WorkoutEntry from "../components/WorkoutEntry";
+import NewWorkoutEntry from "../components/NewWorkoutEntry";
 
 export default function WorkoutDetailPage() {
     const { workoutId } = useParams();
