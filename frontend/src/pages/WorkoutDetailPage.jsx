@@ -137,5 +137,43 @@ export default function WorkoutDetailPage() {
         }
     };
 
-    
+    return (
+        <div className="workout-detail">
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <>
+                    <h2>{workout.name}</h2>
+                    <input
+                        type="text"
+                        value={workout.name}
+                        onChange={(e) => setWorkout({ ...workout, name: e.target.value })}
+                        required
+                    />
+                    <input 
+                        type="date"
+                        value={workout.name || ""}
+                        onChange={(e) => setWorkout({ ...workout, date: e.target.value })}
+                        disabled={!workout.date}
+                    />
+                    <button onClick={handleUpdateWorkout}>Save Workout information</button>
+
+                    <h2>Planned Exercises</h2>
+                    {workout.workoutEntries.map(entry => (
+                        <WorkoutEntry
+                            key={entry.id}
+                            entry={entry}
+                            exercises={exercises}
+                            onCreate={handleCreateEntry}
+                            onUpdate={handleUpdateEntry}
+                            onDelete={handleDeleteEntry}
+                            onCreateSet={handleCreateSet}
+                            onUpdateSet={handleUpdateSet}
+                            onDeleteSet={handleDeleteSet}
+                        />
+                    ))}
+                </>
+            )}
+        </div>
+    );
 }
