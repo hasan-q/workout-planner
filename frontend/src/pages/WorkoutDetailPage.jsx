@@ -11,6 +11,7 @@ import {
     deleteExerciseSet
 } from "../api/workoutService";
 import { getExercises } from "../api/exerciseService";
+import WorkoutEntry from "../components/WorkoutEntry";
 
 export default function WorkoutDetailPage() {
     const { workoutId } = useParams();
