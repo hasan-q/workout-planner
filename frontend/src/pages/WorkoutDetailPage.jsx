@@ -172,6 +172,11 @@ export default function WorkoutDetailPage() {
                             onDeleteSet={handleDeleteSet}
                         />
                     ))}
+                    <h2>Add New Exercise</h2>
+                    <NewWorkoutEntry
+                        exercises={exercises}
+                        onCreate={handleCreateEntry}
+                    />
                 </>
             )}
         </div>
