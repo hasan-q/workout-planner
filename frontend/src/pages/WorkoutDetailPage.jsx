@@ -135,5 +135,7 @@ export default function WorkoutDetailPage() {
         } catch (error) {
             console.error(error);
         }
-    }
+    };
+
+    
 }
