@@ -40,7 +40,7 @@ export async function createWorkoutEntry(workoutId, { exerciseId, notes }) {
     return response.data;
 }
 
-export async function updateWorkoutEntry(workoutId, entryId, { exerciseId, notes }) {
+export async function updateWorkoutEntry(entryId, { exerciseId, notes }) {
     const body = {
         exercise: {
             id: exerciseId
@@ -48,13 +48,12 @@ export async function updateWorkoutEntry(workoutId, entryId, { exerciseId, notes
         notes
     };
 
-    const response = await api.put(`/workouts/${workoutId}/entries/${entryId}`, body);
+    const response = await api.put(`/workouts/entries/${entryId}`, body);
     return response.data;
 }
 
 export async function deleteWorkoutEntry(workoutId, entryId) {
     const response = await api.delete(`/workouts/${workoutId}/entries/${entryId}`);
-    return response.data;
 }
 
 // Exercise Sets
@@ -83,5 +82,4 @@ export async function updateExerciseSet(setId, { setNumber, reps, weight }) {
 
 export async function deleteExerciseSet(setId) {
     const response = await api.delete(`/workouts/sets/${setId}`);
-    return response.data;
 }

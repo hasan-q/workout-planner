@@ -13,6 +13,7 @@ export default function NewWorkoutEntry({ exercises, onCreate }) {
         setExerciseId("");
     }
 
+    // Add a default empty first option in the exercises dropdown
     return (
         <div className="new-workout-entry">
             <label>Exercise:

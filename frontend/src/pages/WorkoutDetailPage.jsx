@@ -62,7 +62,7 @@ export default function WorkoutDetailPage() {
 
     const handleUpdateEntry = async (entryId, exerciseId, notes) => {
         try {
-            const updatedEntry = await updateWorkoutEntry(workoutId, entryId, { exerciseId, notes });
+            const updatedEntry = await updateWorkoutEntry(entryId, { exerciseId, notes });
 
             setWorkout(prevWorkout => ({
                 ...prevWorkout,

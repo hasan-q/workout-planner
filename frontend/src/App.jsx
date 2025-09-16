@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ExercisesPage from "./pages/ExercisesPage";
 import Dashboard from "./pages/Dashboard";
+import WorkoutsPage from "./pages/WorkoutsPage";
 import WorkoutDetailPage from "./pages/WorkoutDetailPage";
 
 // Unprotected Routes: Login, Register
