@@ -27,17 +27,17 @@ export default function WorkoutEntry({ entry, exercises, onUpdate, onDelete, onC
                     <input
                         type="number"
                         value={set.setNumber}
-                        onChange={(e) => onUpdateSet(entry.id, e.target.value, set.reps, set.weight)}
+                        onChange={(e) => onUpdateSet(entry.id, set.id, e.target.value, set.reps, set.weight)}
                     />
                     <input
                         type="number"
                         value={set.reps}
-                        onChange={(e) => onUpdateSet(entry.id, set.setNumber, e.target.value, set.weight)}
+                        onChange={(e) => onUpdateSet(entry.id, set.id, set.setNumber, e.target.value, set.weight)}
                     />
                     <input
                         type="number"
                         value={set.weight}
-                        onChange={(e) => onUpdateSet(entry.id, set.setNumber, set.reps, e.target.value)}
+                        onChange={(e) => onUpdateSet(entry.id, set.id, set.setNumber, set.reps, e.target.value)}
                     />
                     <button onClick={() => onDeleteSet(entry.id, set.id)}>Delete Set</button>
                 </div>
