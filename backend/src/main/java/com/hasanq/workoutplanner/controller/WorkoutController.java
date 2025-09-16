@@ -62,7 +62,7 @@ public class WorkoutController {
         AppUser user = SecurityHelper.getAuthenticatedUser();
         Workout workout = new Workout();
         workout.setName(dto.getName());
-        workout.setDate(dto.getDate() != null ? dto.getDate() : LocalDate.now());
+        workout.setDate(dto.getDate());
         Workout savedWorkout = workoutService.createWorkout(workout, user);
         return mapWorkoutToDTO(savedWorkout);
     }

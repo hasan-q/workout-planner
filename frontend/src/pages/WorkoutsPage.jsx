@@ -15,7 +15,9 @@ export default function WorkoutsPage() {
             (async () => {
                 try {
                     const allWorkouts = await getWorkouts();
+                    console.log("All workouts:", allWorkouts);
                     const templates = allWorkouts.filter(workout => !workout.date);
+                    console.log("templates after filtering by date:", templates);
                     setTemplates(templates);
                 } catch (error) {
                     console.log(error);

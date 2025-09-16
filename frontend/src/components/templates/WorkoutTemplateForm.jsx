@@ -20,7 +20,10 @@ export default function WorkoutTemplateForm({ initialWorkout, onSubmit, onClose 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let templateData = { name };
+        let templateData = { 
+            name,
+            date: null
+        };
         onSubmit(templateData);
         setName("");
     }

@@ -13,11 +13,11 @@ export default function NewWorkoutEntry({ exercises, onCreate }) {
         setExerciseId("");
     }
 
-    // Add a default empty first option in the exercises dropdown
     return (
         <div className="new-workout-entry">
             <label>Exercise:
                 <select value={exerciseId} onChange={(e) => setExerciseId(e.target.value)}>
+                    <option value=""></option>
                     {exercises.map(exercise => (
                         <option key={exercise.id} value={exercise.id}>{exercise.name}</option>
                     ))}

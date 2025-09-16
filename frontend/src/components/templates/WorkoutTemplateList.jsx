@@ -16,7 +16,7 @@ export default function WorkoutTemplateList({ templates, onStart, onEdit, onDele
                             <tr key={template.id}>
                                 <td>{template.name}</td>
                                 <td>
-                                    <button onClick={() => onStart(template.id)}>Start Workout</button>
+                                    <button onClick={() => onStart(template)}>Start Workout</button>
                                     <button onClick={() => onEdit(template)}>Edit</button>
                                     <button onClick={() => onDelete(template.id)}>Delete</button>
                                 </td>

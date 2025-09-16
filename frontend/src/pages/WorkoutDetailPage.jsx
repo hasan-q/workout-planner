@@ -154,7 +154,7 @@ export default function WorkoutDetailPage() {
                     />
                     <input 
                         type="date"
-                        value={workout.name || ""}
+                        value={workout.date || ""}
                         onChange={(e) => setWorkout({ ...workout, date: e.target.value })}
                         disabled={!workout.date}
                     />
