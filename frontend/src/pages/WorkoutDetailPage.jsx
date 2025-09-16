@@ -74,7 +74,7 @@ export default function WorkoutDetailPage() {
     };
 
     const handleDeleteEntry = async (entryId) => {
-        await deleteWorkoutEntry(workoutId, entryId);
+        await deleteWorkoutEntry(entryId);
         setWorkout(prevWorkout => ({
             ...prevWorkout,
             workoutEntries: prevWorkout.workoutEntries.filter(entry => entry.id !== entryId)

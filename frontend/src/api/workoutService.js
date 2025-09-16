@@ -52,8 +52,8 @@ export async function updateWorkoutEntry(entryId, { exerciseId, notes }) {
     return response.data;
 }
 
-export async function deleteWorkoutEntry(workoutId, entryId) {
-    const response = await api.delete(`/workouts/${workoutId}/entries/${entryId}`);
+export async function deleteWorkoutEntry(entryId) {
+    const response = await api.delete(`/workouts/entries/${entryId}`);
 }
 
 // Exercise Sets
