@@ -1,5 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Outlet, Route, Routes } from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import Header from "./components/Header";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ExercisesPage from "./pages/ExercisesPage";
@@ -8,9 +9,6 @@ import WorkoutsPage from "./pages/WorkoutsPage";
 import WorkoutDetailPage from "./pages/WorkoutDetailPage";
 import HistoryPage from "./pages/HistoryPage";
 
-// Unprotected Routes: Login, Register
-// Protected Routes: Dashboard, Exercises, Workouts, Workout details page, History
-
 export default function App() {
     return (
         <Routes>
@@ -18,11 +16,19 @@ export default function App() {
             <Route path="/register" element={<RegisterPage />} />
 
             <Route element={<ProtectedRoutes />}>
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/exercises" element={<ExercisesPage />} />
-                <Route path="/workouts" element={<WorkoutsPage />} />
-                <Route path="/workouts/:workoutId" element={<WorkoutDetailPage />} />
-                <Route path="/history" element={<HistoryPage />} />
+                <Route element={
+                    <>
+                        <Header />
+                        <Outlet />
+                    </>
+                    }
+                >
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/exercises" element={<ExercisesPage />} />
+                    <Route path="/workouts" element={<WorkoutsPage />} />
+                    <Route path="/workouts/:workoutId" element={<WorkoutDetailPage />} />
+                    <Route path="/history" element={<HistoryPage />} />
+                </Route>
             </Route>
         </Routes>
     );
