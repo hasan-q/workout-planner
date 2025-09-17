@@ -2,24 +2,25 @@ import { useState, useEffect } from "react";
 import { getExercises, createExercise, updateExercise, deleteExercise } from "../api/exerciseService";
 import ExerciseForm from "../components/ExercisesForm";
 import ExercisesList from "../components/ExercisesList";
+import ProgressChart from "../components/ProgressChart";
+import { getWorkouts } from "../api/workoutService";
 
 export default function ExercisesPage() {
     const [exercises, setExercises] = useState([]);
+    const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [exerciseToTrack, setExerciseToTrack] = useState(null);
     const [selectedExercise, setSelectedExercise] = useState(null);
-
-
-    // Bugfix: res.data does not work: exerciseService.js returns response.data already
-    // Calling res.data would essentially mean res.data.data, so call res only
+    const [progressData, setProgressData] = useState([]);
     
     useEffect(
         () => {
             (async () => {
                 try {
-                    const res = await getExercises();
-                    console.log("Get exercises res:", res);
-                    console.log("Exercises from exercises, setExercises:", exercises);
-                    setExercises(res);
+                    const fetchedExercises = await getExercises();
+                    const fetchedWorkouts = await getWorkouts();
+                    setExercises(fetchedExercises);
+                    setWorkouts(fetchedWorkouts);
                 } catch (error) {
                     console.error(error);
                 } finally {
@@ -52,6 +53,31 @@ export default function ExercisesPage() {
         setExercises(updatedExercises);
     };
 
+    const buildExerciseProgress = (workouts, exerciseId) => {
+        const progress = [];
+
+        workouts.forEach(workout => {
+            if (!workout.date) return;
+
+            workout.workoutEntries.forEach(entry => {
+                if (entry.exercise.id === exerciseId) {
+                    const maxWeight = Math.max(...entry.sets.map(set => set.weight));
+                    progress.push({ date: workout.date, weight: maxWeight });
+                }
+            });
+        });
+
+        progress.sort((a, b) => new Date(a.date) - new Date(b.date));
+        return progress;
+    }
+
+    const handleSetExerciseToTrack = (exerciseId) => {
+        setExerciseToTrack(exerciseId);
+
+        const progress = buildExerciseProgress(workouts, exerciseId);
+        setProgressData(progress);
+    }
+
     return (
         <div className="Exercises">
             <ExerciseForm onSubmit={handleAddExercise} />
@@ -59,11 +85,24 @@ export default function ExercisesPage() {
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <ExercisesList
-                    exercises={exercises}
-                    onEdit={setSelectedExercise}
-                    onDelete={handleDeleteExercise}
-                />
+                <>
+                    <ExercisesList
+                        exercises={exercises}
+                        onEdit={setSelectedExercise}
+                        onDelete={handleDeleteExercise}
+                    />
+
+                    <h2>Track Progress</h2>
+                    {exerciseToTrack & progressData.length > 0 ? (
+                        <div className="tracked-exercise">
+                            <ProgressChart
+                                data={progressData}
+                            />
+                        </div>
+                    ) : (
+                        <p>Select an exercise to see your progress.</p>
+                    )}
+                </>
             )}
 
             {selectedExercise && (
