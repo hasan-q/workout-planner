@@ -1,0 +1,19 @@
+.active {
+    font-weight: bold;
+}
+
+.header {
+    text-decoration: none;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    color: black;
+}
