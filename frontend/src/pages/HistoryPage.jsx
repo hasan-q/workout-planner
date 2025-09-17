@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { getWorkouts } from "../api/workoutService";
+import HistoryList from "../components/HistoryList";
 
 export default function HistoryPage() {
     const [workouts, setWorkouts] = useState([]);
-    const [expandedWorkout, setExpandedWorkout] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(
@@ -22,8 +22,15 @@ export default function HistoryPage() {
         }, []
     );
 
-    const toggleExpanded = (id) => {
-        // only one workout can be toggled at a time, uses ID
-        setExpandedWorkout(expandedWorkout === id ? null : id);
-    };
+    return (
+        <div className="history-page">
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <HistoryList
+                    workouts={workouts}
+                />
+            )}
+        </div>
+    );
 }
