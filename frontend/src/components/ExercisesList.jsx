@@ -2,7 +2,7 @@
 
 //try removing exercises = [] ***************
 
-export default function ExercisesList({ exercises = [], onEdit, onDelete }) {
+export default function ExercisesList({ exercises = [], onEdit, onDelete, onTrack }) {
     return (
         <div>
             {exercises.length === 0 ? (
@@ -24,6 +24,7 @@ export default function ExercisesList({ exercises = [], onEdit, onDelete }) {
                                 <td>
                                     <button onClick={() => onEdit(exercise)}>Edit</button>
                                     <button onClick={() => onDelete(exercise.id)}>Delete</button>
+                                    <button onClick={() => onTrack(exercise.id)}>View Progress</button>
                                 </td>
                             </tr>
                         ))}

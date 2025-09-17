@@ -90,6 +90,7 @@ export default function ExercisesPage() {
                         exercises={exercises}
                         onEdit={setSelectedExercise}
                         onDelete={handleDeleteExercise}
+                        onTrack={handleSetExerciseToTrack}
                     />
 
                     <h2>Track Progress</h2>
