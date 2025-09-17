@@ -6,6 +6,7 @@ import ExercisesPage from "./pages/ExercisesPage";
 import Dashboard from "./pages/Dashboard";
 import WorkoutsPage from "./pages/WorkoutsPage";
 import WorkoutDetailPage from "./pages/WorkoutDetailPage";
+import HistoryPage from "./pages/HistoryPage";
 
 // Unprotected Routes: Login, Register
 // Protected Routes: Dashboard, Exercises, Workouts, Workout details page, History
@@ -21,6 +22,7 @@ export default function App() {
                 <Route path="/exercises" element={<ExercisesPage />} />
                 <Route path="/workouts" element={<WorkoutsPage />} />
                 <Route path="/workouts/:workoutId" element={<WorkoutDetailPage />} />
+                <Route path="/history" element={<HistoryPage />} />
             </Route>
         </Routes>
     );
