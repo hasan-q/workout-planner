@@ -95,7 +95,7 @@ export default function ExercisesPage() {
 
                     <h2>Track Progress</h2>
                     {exerciseToTrack & progressData.length > 0 ? (
-                        <div className="tracked-exercise">
+                        <div className="tracked-exercise" style={{ height: 300 }}>
                             <ProgressChart
                                 data={progressData}
                             />
