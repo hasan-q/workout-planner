@@ -1,6 +1,7 @@
 import "../components/pages.css";
 import "../components/dashboard.css";
 import { useUserTemplates } from "../hooks/useUserTemplates";
+import { useStartWorkout } from "../utils/workoutUtils";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -9,6 +10,8 @@ export default function Dashboard() {
     const username = localStorage.getItem("username");
     const navigate = useNavigate();
     const { templates, loading } = useUserTemplates(5);
+
+    const { handleStartWorkout } = useStartWorkout();
 
     if (loading) return <p>Loading...</p>
 
@@ -29,9 +32,9 @@ export default function Dashboard() {
                                 <h3>{template.name}</h3>
                                 <button 
                                     className="template-item-start"
-                                    onClick={() => navigate(`/workouts/${template.id}`)}
+                                    onClick={() => handleStartWorkout(template)}
                                 >
-                                    Start workout
+                                    Start Workout
                                 </button>
                             </li>
                         ))}
