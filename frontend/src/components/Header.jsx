@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <header className="header">
             <nav>
-                <p className="nav-title">Workout Planner</p>
+                <p className="nav-title"></p>
                 <ul className="nav-list-other">
                     <li>
                         <NavLink to="/dashboard" className={getClass}>Dashboard</NavLink>

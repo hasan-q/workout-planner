@@ -1,0 +1,13 @@
+.dashboard {
+    max-width: 60%;
+    margin: auto;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.title-text {
+    font-weight: 400;
+}
