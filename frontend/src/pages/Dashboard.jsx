@@ -1,5 +1,10 @@
 export default function Dashboard() {
+
+    const username = localStorage.getItem("username");
+
     return (
-        <h2>Dashboard</h2>
+        <div className="dashboard">
+            <h2>Hello, {username}</h2>
+        </div>
     );
 }
