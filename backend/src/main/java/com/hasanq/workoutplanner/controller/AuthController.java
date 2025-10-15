@@ -4,6 +4,7 @@ import com.hasanq.workoutplanner.dto.AuthResponse;
 import com.hasanq.workoutplanner.dto.LoginRequest;
 import com.hasanq.workoutplanner.dto.RefreshTokenRequest;
 import com.hasanq.workoutplanner.dto.RegisterRequest;
+import com.hasanq.workoutplanner.model.AppUser;
 import com.hasanq.workoutplanner.model.RefreshToken;
 import com.hasanq.workoutplanner.security.JwtService;
 import com.hasanq.workoutplanner.service.AuthService;
@@ -44,7 +45,9 @@ public class AuthController {
                 .map(refreshTokenService::verifyExpiration)
                 .orElseThrow(() -> new RuntimeException("Refresh token not found"));
 
+        AppUser user = refreshToken.getUser();
+
         String newAccessToken = jwtService.generateToken(refreshToken.getUser());
-        return ResponseEntity.ok(new AuthResponse(newAccessToken, requestToken));
+        return ResponseEntity.ok(new AuthResponse(newAccessToken, requestToken, user.getUsernameValue()));
     }
 }
