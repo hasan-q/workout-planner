@@ -8,6 +8,10 @@ export async function login({ email, password }) {
         saveTokens(response.data.accessToken, response.data.refreshToken);
     }
 
+    if (response.data.username) {
+        localStorage.setItem("username", response.data.username)
+    }
+
     return response.data;
 }
 
@@ -16,6 +20,10 @@ export async function register({ username, email, password }) {
 
     if (response.data.accessToken && response.data.refreshToken) {
         saveTokens(response.data.accessToken, response.data.refreshToken);
+    }
+
+    if (response.data.username) {
+        localStorage.setItem("username", response.data.username)
     }
 
     return response.data;
@@ -32,6 +40,9 @@ export async function refreshToken() {
 
     if (response.data.accessToken) {
         saveTokens(response.data.accessToken, response.data.refreshToken);
+        if (response.data.username) {
+            localStorage.setItem("username", response.data.username)
+        }
     }
 
     return response.data;
