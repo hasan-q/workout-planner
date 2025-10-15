@@ -4,12 +4,12 @@
     flex-direction: row;
     padding: 0px;
     margin: 0px;
+    gap:20px;
 }
 
 .dashboard-template-item {
     height: 100px;
     background-color: #F8F8F8;
-    margin-right: 20px;
     padding: 10px;
     width: 200px;
     max-width: 200px;
@@ -39,7 +39,7 @@ h3 {
 }
 
 a {
-    color: blue;
+    color: #61a0cc;
 }
 
 a:hover {
