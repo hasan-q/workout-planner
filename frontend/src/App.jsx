@@ -28,6 +28,7 @@ export default function App() {
                     <Route path="/workouts" element={<WorkoutsPage />} />
                     <Route path="/workouts/:workoutId" element={<WorkoutDetailPage />} />
                     <Route path="/history" element={<HistoryPage />} />
+                    <Route path="/account" element={<AccountPage />} />
                 </Route>
             </Route>
         </Routes>

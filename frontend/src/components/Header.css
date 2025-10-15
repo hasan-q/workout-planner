@@ -6,19 +6,30 @@
     text-decoration: none;
     background-color: #F3F3F3;
     margin-top: 0px;
-    height: 32px;
+    height: 40px;
 }
 
-.nav-list {
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    font-size: 18px;
+}
+
+.nav-title {
+    margin: 0;
+}
+
+.nav-list-other {
     list-style: none;
     display: flex;
     flex-direction: row;
     gap: 20px;
-    padding-top: 4px;
-    margin-top: 0px;
+    padding: 0;
+    margin: 0;
 }
 
-.nav-list li a {
+nav li a {
     text-decoration: none;
     color: black;
 }
