@@ -1,9 +1,11 @@
-import { clearTokens } from "../api/tokenService";
+import { logout } from "../api/authService";
 
-return (
-    <div className="logout-page">
-        <h2>Account Details</h2>
-        <p>Username: </p>
-        <button onClick={clearTokens}>Logout</button>
-    </div>
-);
+export default function AccountPage() {
+    return (
+        <div className="logout-page">
+            <h2>Account Details</h2>
+            <p>Username: </p>
+            <button onClick={logout}>Logout</button>
+        </div>
+    );
+}

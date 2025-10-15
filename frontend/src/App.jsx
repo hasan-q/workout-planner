@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import WorkoutsPage from "./pages/WorkoutsPage";
 import WorkoutDetailPage from "./pages/WorkoutDetailPage";
 import HistoryPage from "./pages/HistoryPage";
+import AccountPage from "./pages/AccountPage";
 
 export default function App() {
     return (
