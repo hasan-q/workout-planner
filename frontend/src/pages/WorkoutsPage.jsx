@@ -11,6 +11,7 @@ export default function WorkoutsPage() {
 
     const navigate = useNavigate();
 
+    // Later: replace this with hook
     useEffect(
         () => {
             (async () => {

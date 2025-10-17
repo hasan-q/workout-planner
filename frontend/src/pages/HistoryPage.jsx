@@ -6,6 +6,7 @@ export default function HistoryPage() {
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Later: Replace this with hook
     useEffect(
         () => {
             (async () => {

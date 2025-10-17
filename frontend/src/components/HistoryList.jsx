@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export default function HistoryList({ workouts }) {
-    const [expandedWorkout, setExpandedWorkout] = useState(null);
+export default function HistoryList({ workouts, expandedId = null }) {
+    const [expandedWorkout, setExpandedWorkout] = useState(expandedId);
 
     const toggleExpanded = (id) => {
         // only one workout can be toggled at a time, uses ID

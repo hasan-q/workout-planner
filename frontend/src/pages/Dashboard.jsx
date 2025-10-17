@@ -3,6 +3,7 @@ import "../components/dashboard.css";
 import { useUserTemplates } from "../hooks/useUserTemplates";
 import { useUserWorkouts } from "../hooks/useUserWorkouts";
 import { useStartWorkout } from "../utils/workoutUtils";
+import { UseViewHistory } from "../utils/historyUtils";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -14,6 +15,7 @@ export default function Dashboard() {
     const { workouts, loadingWorkouts } = useUserWorkouts(5);
 
     const { handleStartWorkout } = useStartWorkout();
+    const { handleViewExpandedWorkout } = UseViewHistory();
 
     if (loadingTemplates) return <p>Loading Workouts...</p>
     if (loadingWorkouts) return <p>Loading History...</p>
