@@ -21,7 +21,7 @@ export default function Dashboard() {
     // Used for stats
     const totalWorkouts = workouts.length;
     const maxWeight = () => {
-        maxWeight = 0;
+        let maxWeight = 0;
         for (const workout of workouts) {
             for (const entry of workout.workoutEntries || []) {
                 for (const set of entry.sets || []) {
@@ -55,7 +55,7 @@ export default function Dashboard() {
             } else {
                 currStreak = 1;
             }
-            
+
             maxStreak = Math.max(maxStreak, currStreak);
         }
 
