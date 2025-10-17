@@ -46,7 +46,18 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         }
 
         jwt = authHeader.substring(7);
-        email = jwtService.extractEmailFromToken(jwt);
+
+        try {
+            email = jwtService.extractEmailFromToken(jwt);
+        } catch (io.jsonwebtoken.ExpiredJwtException e) {
+            if (request.getRequestURL().toString().contains("/auth/refresh-token")) {
+                filterChain.doFilter(request, response);
+                return;
+            } else {
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
+        }
 
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
