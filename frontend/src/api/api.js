@@ -1,5 +1,6 @@
 import axios from "axios";
-import { getAccessToken } from "./tokenService";
+import { getAccessToken, saveTokens } from "./tokenService";
+import { refreshToken } from "./authService";
 
 const api = axios.create({
     baseURL: "http://localhost:8080/api",
@@ -19,8 +20,22 @@ api.interceptors.request.use(config => {
 
 api.interceptors.response.use(response => response,
     async error => {
-        if (error.response && error.response.status === 401) {
-            console.warn("Unauthorized Request");
+        const originalRequest = error.config;
+
+        if (error.response && error.response.status === 401 && !originalRequest._retry) {
+            originalRequest._retry = true;
+
+            try {
+                const data = await refreshToken();
+                if (data.accessToken) {
+                    saveTokens(data.accessToken, data.refreshToken);
+
+                    originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+                    return api(originalRequest);
+                }
+            } catch (refreshError) {
+                console.error("Refresh failed:", refreshError);
+            }
         }
         return Promise.reject(error);
     }
