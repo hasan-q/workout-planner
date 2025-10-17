@@ -46,7 +46,7 @@ export default function Dashboard() {
                     </ul>
                 )}
                 <p>View all <Link to="/workouts"className="link">Workouts</Link></p>
-                <p>Still need: Recent Workouts (fetch first few from history)</p>
+                <p>ADDED: Recent Workouts (fetch first few from history)</p>
                 <p>Progress Snapshot: select random exercise, pull up graph of progress</p>
                 <p>Quick Actions: New Exercise, New Template, View History (Just Link to pages)</p>
             </div>
@@ -72,6 +72,7 @@ export default function Dashboard() {
                         ))}
                     </ul>
                 )}
+                <p>View workout <Link to="/history"className="link">History</Link></p>
             </div>
         </div>
     );
