@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-
+    
+    const ONE_DAY_MILLIS = 1000 * 60 * 60 * 24;
     const username = localStorage.getItem("username");
     const navigate = useNavigate();
     const { templates, loadingTemplates } = useUserTemplates(5);
@@ -16,6 +17,50 @@ export default function Dashboard() {
 
     const { handleStartWorkout } = useStartWorkout();
     const { handleViewExpandedWorkout } = UseViewHistory();
+
+    // Used for stats
+    const totalWorkouts = workouts.length;
+    const maxWeight = () => {
+        maxWeight = 0;
+        for (const workout of workouts) {
+            for (const entry of workout.workoutEntries || []) {
+                for (const set of entry.sets || []) {
+                    if (set.weight > maxWeight) {
+                        maxWeight = set.weight;
+                    }
+                }
+            }
+        }
+        return maxWeight
+    };
+
+    const longestStreak = () => {
+        if (!workouts || workouts.length === 0) return 0;
+
+        const sorted = [...workouts].sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+        );
+
+        let maxStreak = 1;
+        let currStreak = 1;
+
+        for (let i = 1; i < sorted.length; i++) {
+            const prevDate = new Date(sorted[i - 1].date);
+            const currDate = new Date(sorted[i].date);
+
+            const diff = currDate - prevDate;
+
+            if (diff <= ONE_DAY_MILLIS && diff >= 0) {
+                currStreak++;
+            } else {
+                currStreak = 1;
+            }
+            
+            maxStreak = Math.max(maxStreak, currStreak);
+        }
+
+        return maxStreak;
+    }
 
     const cleanISODate = (date) => {
         const [y, m, d] = date.split('-');
@@ -55,8 +100,8 @@ export default function Dashboard() {
                 )}
                 <p>View all <Link to="/workouts"className="link">Workouts</Link></p>
             </div>
-            <div>
-                <h2 className="title-text">Quick Actions</h2>
+            <div className="stats-container">   
+                <h2 className="title-text">Stats</h2>
             </div>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
