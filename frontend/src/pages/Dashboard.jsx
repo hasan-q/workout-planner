@@ -25,7 +25,6 @@ export default function Dashboard() {
             <h1>Hello, {username}</h1>
             <div className="dashboard-template-container">
                 <h2 className="title-text">Your Planned Workouts</h2>
-                {console.log(templates)}
                 {templates.length === 0 ? (
                     <p>You have no templates yet.</p>
                 ) : (
@@ -62,7 +61,10 @@ export default function Dashboard() {
                                 key={workout.id}
                                 className="dashboard-workout-item"
                             >
-                                <h3>{workout.name}</h3>
+                                <div>
+                                    <h3>{workout.name}</h3>
+                                    <p className="workout-date">{workout.date.split("-").reverse().join("/")}</p>
+                                </div>
                                 <button 
                                     className="workout-item-view"
                                     onClick={() => handleViewExpandedWorkout(workout.id)}
