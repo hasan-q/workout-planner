@@ -25,6 +25,7 @@ export default function Dashboard() {
             <h1>Hello, {username}</h1>
             <div className="dashboard-template-container">
                 <h2 className="title-text">Your Planned Workouts</h2>
+                {console.log(templates)}
                 {templates.length === 0 ? (
                     <p>You have no templates yet.</p>
                 ) : (
@@ -34,7 +35,10 @@ export default function Dashboard() {
                                 key={template.id}
                                 className="dashboard-template-item"
                             >
-                                <h3>{template.name}</h3>
+                                <div>
+                                    <h3>{template.name}</h3>
+                                    <p className="template-length">{template.workoutEntries.length} Exercises</p>
+                                </div>
                                 <button 
                                     className="template-item-start"
                                     onClick={() => handleStartWorkout(template)}
@@ -46,9 +50,6 @@ export default function Dashboard() {
                     </ul>
                 )}
                 <p>View all <Link to="/workouts"className="link">Workouts</Link></p>
-                <p>ADDED: Recent Workouts (fetch first few from history)</p>
-                <p>Progress Snapshot: select random exercise, pull up graph of progress</p>
-                <p>Quick Actions: New Exercise, New Template, View History (Just Link to pages)</p>
             </div>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>

@@ -12,6 +12,7 @@ export function useUserTemplates(limit = null) {
                 try {
                     const allWorkouts = await getWorkouts();
                     const templates = allWorkouts.filter(workout => !workout.date);
+                    templates.reverse();
                     setTemplates(limit ? templates.slice(0, limit) : templates);
                 } catch (error) {
                     console.log(error);

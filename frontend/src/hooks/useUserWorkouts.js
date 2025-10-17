@@ -12,6 +12,7 @@ export function useUserWorkouts(limit = null) {
                 try {
                     const allWorkouts = await getWorkouts();
                     const startedWorkouts = allWorkouts.filter(workout => workout.date);
+                    startedWorkouts.reverse();
                     setWorkouts(limit ? startedWorkouts.slice(0, limit) : startedWorkouts);
                 } catch (error) {
                     console.error(error);
