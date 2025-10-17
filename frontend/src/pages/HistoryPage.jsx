@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { getWorkouts } from "../api/workoutService";
 import HistoryList from "../components/HistoryList";
 
 export default function HistoryPage() {
     const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const location = useLocation();
+
+    // If we navigated from dashboard: we have expandedId
+    const expandedId = location.state?.expandedId ?? null;
 
     // Later: Replace this with hook
     useEffect(
@@ -30,6 +35,7 @@ export default function HistoryPage() {
             ) : (
                 <HistoryList
                     workouts={workouts}
+                    expandedId={expandedId}
                 />
             )}
         </div>

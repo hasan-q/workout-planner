@@ -55,7 +55,22 @@ export default function Dashboard() {
                 {workouts.length === 0 ? (
                     <p>You haven't started any workouts yet.</p>
                 ) : (
-                    <p>a</p>
+                    <ul className="dashboard-workouts">
+                        {workouts.map(workout => (
+                            <li
+                                key={workout.id}
+                                className="dashboard-workout-item"
+                            >
+                                <h3>{workout.name}</h3>
+                                <button 
+                                    className="workout-item-view"
+                                    onClick={() => handleViewExpandedWorkout(workout.id)}
+                                >
+                                    View Details
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
                 )}
             </div>
         </div>

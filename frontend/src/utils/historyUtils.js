@@ -4,8 +4,8 @@ export function UseViewHistory() {
     const navigate = useNavigate();
 
     const handleViewExpandedWorkout = (workoutId) => {
-        navigate("/history" {
-            state: { expandedId = workoutId }
+        navigate("/history", {
+            state: { expandedId: workoutId }
         });
     };
 
