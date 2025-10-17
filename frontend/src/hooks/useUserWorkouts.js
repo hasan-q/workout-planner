@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { getWorkouts } from "../api/workoutService";
 
-export function useUserTemplates(limit = null) {
-    const [templates, setTemplates] = useState([]);
+export function useUserWorkouts(limit = null) {
+    const [workouts, setWorkouts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -11,10 +11,10 @@ export function useUserTemplates(limit = null) {
             (async () => {
                 try {
                     const allWorkouts = await getWorkouts();
-                    const templates = allWorkouts.filter(workout => !workout.date);
-                    setTemplates(limit ? templates.slice(0, limit) : templates);
+                    const startedWorkouts = allWorkouts.filter(workout => workout.date);
+                    setWorkouts(limit ? startedWorkouts.slice(0, limit) : startedWorkouts);
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                     setError(error);
                 } finally {
                     setLoading(false);
@@ -23,5 +23,5 @@ export function useUserTemplates(limit = null) {
         }, [limit]
     );
 
-    return { templates, loading, error };
+    return { workouts, loading, error };
 }
