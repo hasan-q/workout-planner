@@ -17,6 +17,11 @@ export default function Dashboard() {
     const { handleStartWorkout } = useStartWorkout();
     const { handleViewExpandedWorkout } = UseViewHistory();
 
+    const cleanISODate = (date) => {
+        const [y, m, d] = date.split('-');
+        return `${m}/${d}/${y}`;
+    };
+
     if (loadingTemplates) return <p>Loading Workouts...</p>
     if (loadingWorkouts) return <p>Loading History...</p>
 
@@ -51,6 +56,9 @@ export default function Dashboard() {
                 <p>View all <Link to="/workouts"className="link">Workouts</Link></p>
             </div>
             <div>
+                <h2 className="title-text">Quick Actions</h2>
+            </div>
+            <div>
                 <h2 className="title-text">Recent Workouts</h2>
                 {workouts.length === 0 ? (
                     <p>You haven't started any workouts yet.</p>
@@ -63,7 +71,7 @@ export default function Dashboard() {
                             >
                                 <div>
                                     <h3>{workout.name}</h3>
-                                    <p className="workout-date">{workout.date.split("-").reverse().join("/")}</p>
+                                    <p className="workout-date">{cleanISODate(workout.date)}</p>
                                 </div>
                                 <button 
                                     className="workout-item-view"
