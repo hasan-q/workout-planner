@@ -24,6 +24,7 @@ export default function Dashboard() {
         const sorted = [...workouts].sort(
             (a, b) => new Date(a.date) - new Date(b.date)
         );
+        return sorted;
     };
 
     // Used for stats
@@ -71,7 +72,6 @@ export default function Dashboard() {
     };
     const { maxWeight, maxExerciseName } = getMax();
 
-    // how many days ago was last workout
     const lastWorkout = () => {
         const currentTimeMillis = Date.now();
         console.log(currentTimeMillis);
@@ -81,7 +81,8 @@ export default function Dashboard() {
         
         const sorted = sortedWorkouts();
 
-        const lastWorkoutDate = sorted[sorted.length - 1];
+        const lastSortedWorkout = sorted[sorted.length - 1];
+        const lastWorkoutDate = lastSortedWorkout?.date;
         console.log(lastWorkoutDate);
 
         let days = Math.floor(currentTimeMillis / ONE_DAY_MILLIS);
