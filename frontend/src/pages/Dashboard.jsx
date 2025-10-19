@@ -20,18 +20,21 @@ export default function Dashboard() {
 
     // Used for stats
     const totalWorkouts = workouts.length;
-    const maxWeight = () => {
+    const getMax = () => {
         let maxWeight = 0;
+        let maxExerciseName = "";
         for (const workout of workouts) {
             for (const entry of workout.workoutEntries || []) {
                 for (const set of entry.sets || []) {
                     if (set.weight > maxWeight) {
                         maxWeight = set.weight;
+                        maxExerciseName = entry.exercise.name;
                     }
                 }
             }
         }
-        return maxWeight
+        console.log(maxWeight + ", " + maxExerciseName);
+        return { maxWeight, maxExerciseName };
     };
 
     const longestStreak = () => {
@@ -60,6 +63,15 @@ export default function Dashboard() {
         }
 
         return maxStreak;
+    }
+
+    const { maxWeight, maxExerciseName } = getMax();
+
+    // how many days ago was last workout
+    const lastWorkout = () => {
+        const currentTimeMillis = Date.now();
+        console.log(currentTimeMillis);
+
     }
 
     const cleanISODate = (date) => {
@@ -102,6 +114,7 @@ export default function Dashboard() {
             </div>
             <div className="stats-container">   
                 <h2 className="title-text">Stats</h2>
+                <p>{maxWeight} on {maxExerciseName}</p>
             </div>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
