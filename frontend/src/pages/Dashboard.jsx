@@ -130,27 +130,26 @@ export default function Dashboard() {
                 <h2 className="title-text">Stats</h2>
                 <div className="stats-items">
                     <div className="stat-item">
-                        <p>Longest streak:</p>
-                        <p>{maxStreak}</p>
+                        <p className="stat-title">Longest streak</p>
+                        <p className="no-margin-p">{maxStreak}</p>
                     </div>
                     <div className="stat-item">
-                        <p>Days since last workout:</p>
+                        <p className="stat-title">Days since last workout</p>
                         {timeSinceLastWorkout === 1 ? (
-                            <p>{timeSinceLastWorkout} day</p>
+                            <p className="no-margin-p">{timeSinceLastWorkout} day</p>
                         ) : (
-                            <p>{timeSinceLastWorkout} days</p>
+                            <p className="no-margin-p">{timeSinceLastWorkout} days</p>
                         )}
                     </div>
                     <div className="stat-item">
-                        <p>Strongest lift</p>
-                        <p>{maxWeight} on {maxExerciseName}</p>
+                        <p className="stat-title">Strongest lift</p>
+                        <p className="no-margin-p">{maxWeight} on {maxExerciseName}</p>
                     </div>
                     <div className="stat-item">
-                        <p>Total workouts:</p>
-                        <p>{totalWorkouts}</p>
+                        <p className="stat-title">Total workouts</p>
+                        <p className="no-margin-p">{totalWorkouts}</p>
                     </div>
                 </div>
-                <p>{maxWeight} on {maxExerciseName}</p>
             </div>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
