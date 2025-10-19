@@ -44,6 +44,7 @@ export default function Dashboard() {
         }
         return { maxWeight, maxExerciseName };
     };
+    const { maxWeight, maxExerciseName } = getMax();
 
     const longestStreak = () => {
         if (!workouts || workouts.length === 0) return 0;
@@ -70,11 +71,10 @@ export default function Dashboard() {
 
         return maxStreak;
     };
-    const { maxWeight, maxExerciseName } = getMax();
+    const maxStreak = longestStreak();
 
     const lastWorkout = () => {
         const currentTimeMillis = Date.now();
-        console.log(currentTimeMillis);
         
         const sorted = sortedWorkouts();
 
@@ -86,7 +86,7 @@ export default function Dashboard() {
         const days = Math.round(daysMillis / ONE_DAY_MILLIS);
         return days;
     }
-    const { timeSinceLastWorkout } = lastWorkout();
+    const timeSinceLastWorkout = lastWorkout();
 
     const cleanISODate = (date) => {
         const [y, m, d] = date.split('-');
@@ -128,7 +128,28 @@ export default function Dashboard() {
             </div>
             <div className="stats-container">   
                 <h2 className="title-text">Stats</h2>
-                <p>{timeSinceLastWorkout}</p>
+                <div className="stats-items">
+                    <div className="stat-item">
+                        <p>Longest streak:</p>
+                        <p>{maxStreak}</p>
+                    </div>
+                    <div className="stat-item">
+                        <p>Days since last workout:</p>
+                        {timeSinceLastWorkout === 1 ? (
+                            <p>{timeSinceLastWorkout} day</p>
+                        ) : (
+                            <p>{timeSinceLastWorkout} days</p>
+                        )}
+                    </div>
+                    <div className="stat-item">
+                        <p>Strongest lift</p>
+                        <p>{maxWeight} on {maxExerciseName}</p>
+                    </div>
+                    <div className="stat-item">
+                        <p>Total workouts:</p>
+                        <p>{totalWorkouts}</p>
+                    </div>
+                </div>
                 <p>{maxWeight} on {maxExerciseName}</p>
             </div>
             <div>
