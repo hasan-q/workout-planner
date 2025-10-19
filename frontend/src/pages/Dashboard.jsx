@@ -18,6 +18,14 @@ export default function Dashboard() {
     const { handleStartWorkout } = useStartWorkout();
     const { handleViewExpandedWorkout } = UseViewHistory();
 
+    const sortedWorkouts = () => {
+        if (!workouts || workouts.length === 0) return 0;
+
+        const sorted = [...workouts].sort(
+            (a, b) => new Date(a.date) - new Date(b.date)
+        );
+    };
+
     // Used for stats
     const totalWorkouts = workouts.length;
     const getMax = () => {
@@ -33,16 +41,13 @@ export default function Dashboard() {
                 }
             }
         }
-        console.log(maxWeight + ", " + maxExerciseName);
         return { maxWeight, maxExerciseName };
     };
 
     const longestStreak = () => {
         if (!workouts || workouts.length === 0) return 0;
 
-        const sorted = [...workouts].sort(
-            (a, b) => new Date(a.date) - new Date(b.date)
-        );
+        const sorted = sortedWorkouts();
 
         let maxStreak = 1;
         let currStreak = 1;
@@ -63,8 +68,7 @@ export default function Dashboard() {
         }
 
         return maxStreak;
-    }
-
+    };
     const { maxWeight, maxExerciseName } = getMax();
 
     // how many days ago was last workout
@@ -72,7 +76,19 @@ export default function Dashboard() {
         const currentTimeMillis = Date.now();
         console.log(currentTimeMillis);
 
+        // now: get last workout from history, compare current time millis to most recent's millis
+        // then: divide that difference by ONE DAY MILLIS, floored, to get the int days
+        
+        const sorted = sortedWorkouts();
+
+        const lastWorkoutDate = sorted[sorted.length - 1];
+        console.log(lastWorkoutDate);
+
+        let days = Math.floor(currentTimeMillis / ONE_DAY_MILLIS);
+        console.log(days);
+        return days;
     }
+    const { timeSinceLastWorkout } = lastWorkout();
 
     const cleanISODate = (date) => {
         const [y, m, d] = date.split('-');
@@ -114,6 +130,7 @@ export default function Dashboard() {
             </div>
             <div className="stats-container">   
                 <h2 className="title-text">Stats</h2>
+                <p>{timeSinceLastWorkout}</p>
                 <p>{maxWeight} on {maxExerciseName}</p>
             </div>
             <div>
