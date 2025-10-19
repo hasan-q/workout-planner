@@ -75,18 +75,15 @@ export default function Dashboard() {
     const lastWorkout = () => {
         const currentTimeMillis = Date.now();
         console.log(currentTimeMillis);
-
-        // now: get last workout from history, compare current time millis to most recent's millis
-        // then: divide that difference by ONE DAY MILLIS, floored, to get the int days
         
         const sorted = sortedWorkouts();
 
         const lastSortedWorkout = sorted[sorted.length - 1];
-        const lastWorkoutDate = lastSortedWorkout?.date;
-        console.log(lastWorkoutDate);
+        const lastWorkoutDate = new Date(lastSortedWorkout?.date);
+        const lastWorkoutEpoch = lastWorkoutDate.getTime();
 
-        let days = Math.floor(currentTimeMillis / ONE_DAY_MILLIS);
-        console.log(days);
+        const daysMillis = currentTimeMillis - lastWorkoutEpoch;
+        const days = Math.round(daysMillis / ONE_DAY_MILLIS);
         return days;
     }
     const { timeSinceLastWorkout } = lastWorkout();
