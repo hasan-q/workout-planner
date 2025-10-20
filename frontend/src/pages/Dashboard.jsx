@@ -5,6 +5,7 @@ import { useUserWorkouts } from "../hooks/useUserWorkouts";
 import { useStartWorkout } from "../utils/workoutUtils";
 import { UseViewHistory } from "../utils/historyUtils";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Dashboard() {
     
@@ -91,6 +92,20 @@ export default function Dashboard() {
     const cleanISODate = (date) => {
         const [y, m, d] = date.split('-');
         return `${m}/${d}/${y}`;
+    };
+
+    // build progress chart
+    const randomExercise = () => {
+        const exerciseIdArr = [];
+
+        allWorkouts.forEach(workout => {
+            workout.workoutEntries.forEach(entry => {
+                exerciseIdArr.push(entry.exercise.id);
+            });
+        });
+
+        const randIndex = Math.floor(Math.random() * exerciseIdArr.length);
+        return exerciseIdArr[randIndex];
     };
 
     if (loadingTemplates) return <p>Loading Workouts...</p>
