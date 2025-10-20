@@ -67,6 +67,10 @@
     font-size: 18px;
 }
 
+.chart-container {
+    height: 300px;
+}
+
 h3 {
     font-weight: 400;
     margin: 0;

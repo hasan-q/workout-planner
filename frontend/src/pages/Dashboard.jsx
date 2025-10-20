@@ -5,7 +5,8 @@ import { useUserWorkouts } from "../hooks/useUserWorkouts";
 import { useStartWorkout } from "../utils/workoutUtils";
 import { UseViewHistory } from "../utils/historyUtils";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { useGenerateChart } from "../utils/progressChartUtils";
+import ProgressChart from "../components/ProgressChart";
 
 export default function Dashboard() {
     
@@ -107,6 +108,13 @@ export default function Dashboard() {
         const randIndex = Math.floor(Math.random() * exerciseIdArr.length);
         return exerciseIdArr[randIndex];
     };
+    const randExerciseId = randomExercise();
+    console.log(randExerciseId);
+
+    const { buildExerciseProgress } = useGenerateChart();
+
+    const exerciseProgress = buildExerciseProgress(allWorkouts, randExerciseId);
+    console.log(exerciseProgress);
 
     if (loadingTemplates) return <p>Loading Workouts...</p>
     if (loadingRecent) return <p>Loading History...</p>
@@ -166,6 +174,11 @@ export default function Dashboard() {
                         <p className="no-margin-p">{totalWorkouts}</p>
                     </div>
                 </div>
+            </div>
+            <div className="chart-container">
+                <ProgressChart
+                    data={exerciseProgress}
+                />
             </div>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
