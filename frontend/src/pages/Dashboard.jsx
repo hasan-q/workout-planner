@@ -11,15 +11,16 @@ export default function Dashboard() {
     const ONE_DAY_MILLIS = 1000 * 60 * 60 * 24;
     const username = localStorage.getItem("username");
     const { templates, loadingTemplates } = useUserTemplates(5);
-    const { workouts, loadingWorkouts } = useUserWorkouts(5);
+    const { workouts: recentWorkouts, loading: loadingRecent } = useUserWorkouts(5);
+    const { workouts: allWorkouts, loading: loadingAllWorkouts } = useUserWorkouts();
 
     const { handleStartWorkout } = useStartWorkout();
     const { handleViewExpandedWorkout } = UseViewHistory();
 
     const sortedWorkouts = () => {
-        if (!workouts || workouts.length === 0) return 0;
+        if (!allWorkouts || allWorkouts.length === 0) return 0;
 
-        const sorted = [...workouts].sort(
+        const sorted = [...allWorkouts].sort(
             (a, b) => new Date(a.date) - new Date(b.date)
         );
         return sorted;
@@ -27,11 +28,11 @@ export default function Dashboard() {
 
     // Used for stats
 
-    const totalWorkouts = workouts.length;
+    const totalWorkouts = allWorkouts.length;
     const getMax = () => {
         let maxWeight = 0;
         let maxExerciseName = "";
-        for (const workout of workouts) {
+        for (const workout of allWorkouts) {
             for (const entry of workout.workoutEntries || []) {
                 for (const set of entry.sets || []) {
                     if (set.weight > maxWeight) {
@@ -46,7 +47,7 @@ export default function Dashboard() {
     const { maxWeight, maxExerciseName } = getMax();
 
     const longestStreak = () => {
-        if (!workouts || workouts.length === 0) return 0;
+        if (!allWorkouts || allWorkouts.length === 0) return 0;
 
         const sorted = sortedWorkouts();
 
@@ -93,7 +94,8 @@ export default function Dashboard() {
     };
 
     if (loadingTemplates) return <p>Loading Workouts...</p>
-    if (loadingWorkouts) return <p>Loading History...</p>
+    if (loadingRecent) return <p>Loading History...</p>
+    if (loadingAllWorkouts) return <p>Loading Stats...</p>
 
     return (
         <div className="dashboard">
@@ -152,11 +154,11 @@ export default function Dashboard() {
             </div>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
-                {workouts.length === 0 ? (
+                {recentWorkouts.length === 0 ? (
                     <p>You haven't started any workouts yet.</p>
                 ) : (
                     <ul className="dashboard-workouts">
-                        {workouts.map(workout => (
+                        {recentWorkouts.map(workout => (
                             <li
                                 key={workout.id}
                                 className="dashboard-workout-item"
