@@ -4,14 +4,12 @@ import { useUserTemplates } from "../hooks/useUserTemplates";
 import { useUserWorkouts } from "../hooks/useUserWorkouts";
 import { useStartWorkout } from "../utils/workoutUtils";
 import { UseViewHistory } from "../utils/historyUtils";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
     
     const ONE_DAY_MILLIS = 1000 * 60 * 60 * 24;
     const username = localStorage.getItem("username");
-    const navigate = useNavigate();
     const { templates, loadingTemplates } = useUserTemplates(5);
     const { workouts, loadingWorkouts } = useUserWorkouts(5);
 
@@ -28,6 +26,7 @@ export default function Dashboard() {
     };
 
     // Used for stats
+
     const totalWorkouts = workouts.length;
     const getMax = () => {
         let maxWeight = 0;
