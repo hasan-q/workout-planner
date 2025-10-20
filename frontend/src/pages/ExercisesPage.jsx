@@ -4,6 +4,7 @@ import ExerciseForm from "../components/ExercisesForm";
 import ExercisesList from "../components/ExercisesList";
 import ProgressChart from "../components/ProgressChart";
 import { getWorkouts } from "../api/workoutService";
+import { useGenerateChart } from "../utils/progressChartUtils";
 
 export default function ExercisesPage() {
     const [exercises, setExercises] = useState([]);
@@ -53,23 +54,7 @@ export default function ExercisesPage() {
         setExercises(updatedExercises);
     };
 
-    const buildExerciseProgress = (workouts, exerciseId) => {
-        const progress = [];
-
-        workouts.forEach(workout => {
-            if (!workout.date) return;
-
-            workout.workoutEntries.forEach(entry => {
-                if (entry.exercise.id === exerciseId) {
-                    const maxWeight = Math.max(...entry.sets.map(set => set.weight));
-                    progress.push({ date: workout.date, weight: maxWeight });
-                }
-            });
-        });
-
-        progress.sort((a, b) => new Date(a.date) - new Date(b.date));
-        return progress;
-    }
+    const { buildExerciseProgress } = useGenerateChart();
 
     const handleSetExerciseToTrack = (exerciseId) => {
         setExerciseToTrack(exerciseId);
