@@ -5,6 +5,11 @@ export async function getExercises() {
     return response.data;
 }
 
+export async function getExerciseById(id) {
+    const response = await api.get(`/exercises/${id}`)
+    return response.data;
+}
+
 export async function createExercise({ name, muscleGroup }) {
     const body = {
         name,

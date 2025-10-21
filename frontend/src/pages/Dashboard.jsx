@@ -7,6 +7,8 @@ import { UseViewHistory } from "../utils/historyUtils";
 import { Link } from "react-router-dom";
 import { useGenerateChart } from "../utils/progressChartUtils";
 import ProgressChart from "../components/ProgressChart";
+import { getExerciseById } from "../api/exerciseService";
+import { useState } from "react";
 
 export default function Dashboard() {
     
@@ -15,6 +17,8 @@ export default function Dashboard() {
     const { templates, loadingTemplates } = useUserTemplates(5);
     const { workouts: recentWorkouts, loading: loadingRecent } = useUserWorkouts(5);
     const { workouts: allWorkouts, loading: loadingAllWorkouts } = useUserWorkouts();
+    const [randExerciseId, setRandExerciseId] = useState(null);
+    const [randExerciseName, setRandExerciseName] = useState(null);
 
     const { handleStartWorkout } = useStartWorkout();
     const { handleViewExpandedWorkout } = UseViewHistory();
@@ -113,9 +117,14 @@ export default function Dashboard() {
     const { buildExerciseProgress } = useGenerateChart();
     const exerciseProgress = buildExerciseProgress(allWorkouts, randExerciseId);
 
-    // Now: fix display of the chart (proper width, good date formatting, etc)
+    const getExerciseName = () => {
+        const exercise = getExerciseById(randExerciseId);
+        return exercise.name;
+    }
+    const randExerciseName = getExerciseName();
+
+    // Mark axes of chart (weight, date)
     // name of the exercise it is displaying
-    // then, maybe additional "quick action" buttons
 
     if (loadingTemplates) return <p>Loading Workouts...</p>
     if (loadingRecent) return <p>Loading History...</p>
@@ -181,6 +190,7 @@ export default function Dashboard() {
                     data={exerciseProgress}
                 />
             </div>
+            <p>Today's randomly selected exercise: {randExerciseName}</p>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
                 {recentWorkouts.length === 0 ? (
