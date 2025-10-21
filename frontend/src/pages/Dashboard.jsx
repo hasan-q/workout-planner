@@ -17,8 +17,10 @@ export default function Dashboard() {
     const { templates, loadingTemplates } = useUserTemplates(5);
     const { workouts: recentWorkouts, loading: loadingRecent } = useUserWorkouts(5);
     const { workouts: allWorkouts, loading: loadingAllWorkouts } = useUserWorkouts();
+
     const [randExerciseId, setRandExerciseId] = useState(null);
     const [randExerciseName, setRandExerciseName] = useState(null);
+    const [exerciseProgress, setExerciseProgress] = useState([]);
 
     const { handleStartWorkout } = useStartWorkout();
     const { handleViewExpandedWorkout } = UseViewHistory();
@@ -113,30 +115,33 @@ export default function Dashboard() {
         return exerciseIdArr[randIndex];
     };
 
+    const { buildExerciseProgress } = useGenerateChart();
+    
     useEffect(
         () => {
+            if (!allWorkouts || allWorkouts.length === 0) return;
+
             const id = randomExercise();
             setRandExerciseId(id);
-        }, []
+        }, [allWorkouts]
     );
-
-
-    const { buildExerciseProgress } = useGenerateChart();
-    const exerciseProgress = buildExerciseProgress(allWorkouts, randExerciseId);
 
     useEffect(
         () => {
-            if (!randExerciseId) return;
-
             (async () => {
                 try {
                     const exercise = await getExerciseById(randExerciseId);
                     setRandExerciseName(exercise.name);
+                    console.log(exercise.name);
+
+                    const prog = buildExerciseProgress(allWorkouts, randExerciseId);
+                    console.log(prog)
+                    setExerciseProgress(prog);
                 } catch (error) {
                     console.log("Error fetching exercise:", error);
                 }
             })();
-        }, [randExerciseId]
+        }, [randExerciseId, allWorkouts]
     );
 
     // Mark axes of chart (weight, date)
