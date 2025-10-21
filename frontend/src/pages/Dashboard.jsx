@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useGenerateChart } from "../utils/progressChartUtils";
 import ProgressChart from "../components/ProgressChart";
 import { getExerciseById } from "../api/exerciseService";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
     
@@ -112,16 +112,32 @@ export default function Dashboard() {
         const randIndex = Math.floor(Math.random() * exerciseIdArr.length);
         return exerciseIdArr[randIndex];
     };
-    const randExerciseId = randomExercise();
+
+    useEffect(
+        () => {
+            const id = randomExercise();
+            setRandExerciseId(id);
+        }, []
+    );
+
 
     const { buildExerciseProgress } = useGenerateChart();
     const exerciseProgress = buildExerciseProgress(allWorkouts, randExerciseId);
 
-    const getExerciseName = () => {
-        const exercise = getExerciseById(randExerciseId);
-        return exercise.name;
-    }
-    const randExerciseName = getExerciseName();
+    useEffect(
+        () => {
+            if (!randExerciseId) return;
+
+            (async () => {
+                try {
+                    const exercise = await getExerciseById(randExerciseId);
+                    setRandExerciseName(exercise.name);
+                } catch (error) {
+                    console.log("Error fetching exercise:", error);
+                }
+            })();
+        }, [randExerciseId]
+    );
 
     // Mark axes of chart (weight, date)
     // name of the exercise it is displaying
