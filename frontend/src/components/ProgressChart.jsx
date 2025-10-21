@@ -13,6 +13,13 @@ export default function ProgressChart({ data }) {
                     tick={{ fontSize: 12, fill: "#333" }}
                     tickLine={false}
                     axisLine={false}
+                    tickFormatter={(str) => {
+                        const date = new Date(str);
+                        return date.toLocaleDateString("en-US", {
+                            month: "2-digit",
+                            day: "2-digit"
+                        });
+                    }}
                 />
                 <YAxis
                     tick={{ fontSize: 12, fill: "#333" }}
