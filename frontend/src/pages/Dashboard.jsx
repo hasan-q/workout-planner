@@ -91,7 +91,8 @@ export default function Dashboard() {
         const lastWorkoutEpoch = lastWorkoutDate.getTime();
 
         const daysMillis = currentTimeMillis - lastWorkoutEpoch;
-        const days = Math.round(daysMillis / ONE_DAY_MILLIS);
+        const streakCount = ONE_DAY_MILLIS * 3
+        const days = Math.round(daysMillis / streakCount);
         return days;
     }
     const timeSinceLastWorkout = lastWorkout();
@@ -128,6 +129,8 @@ export default function Dashboard() {
 
     useEffect(
         () => {
+            if (!randExerciseId || !allWorkouts || allWorkouts.length === 0) return;
+
             (async () => {
                 try {
                     const exercise = await getExerciseById(randExerciseId);
