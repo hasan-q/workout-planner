@@ -6,13 +6,15 @@ export default function ProgressChart({ data }) {
     }
     return (
         <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data} margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
+            <LineChart data={data} margin={{ top: 20, right: 50, bottom: 20, left: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
                 <XAxis
                     dataKey="date"
                     tick={{ fontSize: 12, fill: "#333" }}
                     tickLine={false}
                     axisLine={false}
+                    height={10}
+                    dy={8}
                     tickFormatter={(str) => {
                         const date = new Date(str);
                         return date.toLocaleDateString("en-US", {
