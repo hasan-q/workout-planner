@@ -109,12 +109,13 @@ export default function Dashboard() {
         return exerciseIdArr[randIndex];
     };
     const randExerciseId = randomExercise();
-    console.log(randExerciseId);
 
     const { buildExerciseProgress } = useGenerateChart();
-
     const exerciseProgress = buildExerciseProgress(allWorkouts, randExerciseId);
-    console.log(exerciseProgress);
+
+    // Now: fix display of the chart (proper width, good date formatting, etc)
+    // name of the exercise it is displaying
+    // then, maybe additional "quick action" buttons
 
     if (loadingTemplates) return <p>Loading Workouts...</p>
     if (loadingRecent) return <p>Loading History...</p>
