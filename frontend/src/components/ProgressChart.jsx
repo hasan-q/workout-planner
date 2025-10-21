@@ -7,13 +7,33 @@ export default function ProgressChart({ data }) {
     return (
         <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ top: 30, right: 30, bottom: 30, left: 30 }}>
-                <CartesianGrid />
-                <XAxis dataKey="date" />
-                <YAxis dataKey="weight" />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="#ddd" />
+                <XAxis
+                    dataKey="date"
+                    tick={{ fontSize: 12, fill: "#333" }}
+                    tickLine={false}
+                    axisLine={false}
+                />
+                <YAxis
+                    tick={{ fontSize: 12, fill: "#333" }}
+                    tickLine={false}
+                    axisLine={false}
+                    domain={['auto', (dataMax) => dataMax + 1]}
+                />
+                <Tooltip
+                    contentStyle={{
+                        backgroundColor: "#fff",
+                        borderRadius: "8px",
+                        border: "1px solid #ccc",
+                    }}
+                />
                 <Line
+                    type="monotone"
                     dataKey="weight"
-                    stroke="black"
+                    stroke="#303030"
+                    strokeWidth={1}
+                    dot={{ r: 4, stroke: "#303030", strokeWidth: 2 }}
+                    activeDot={{ r: 6 }}
                 />
             </LineChart>
         </ResponsiveContainer>
