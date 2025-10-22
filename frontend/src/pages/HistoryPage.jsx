@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { getWorkouts } from "../api/workoutService";
+import { deleteWorkout, getWorkouts } from "../api/workoutService";
 import HistoryList from "../components/HistoryList";
 
 export default function HistoryPage() {
@@ -28,6 +28,12 @@ export default function HistoryPage() {
         }, []
     );
 
+    const handleDeleteWorkout = async (id) => {
+        await deleteWorkout(id);
+        const updatedWorkouts = workouts.filter((workout) => workout.id !== id);
+        setWorkouts(updatedWorkouts);
+    }
+
     return (
         <div className="history-page">
             {loading ? (
@@ -36,6 +42,7 @@ export default function HistoryPage() {
                 <HistoryList
                     workouts={workouts}
                     expandedId={expandedId}
+                    onDelete={handleDeleteWorkout}
                 />
             )}
         </div>

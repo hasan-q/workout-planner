@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function HistoryList({ workouts, expandedId = null }) {
+export default function HistoryList({ workouts, expandedId = null, onDelete }) {
     const [expandedWorkout, setExpandedWorkout] = useState(expandedId);
 
     const toggleExpanded = (id) => {
@@ -21,6 +21,7 @@ export default function HistoryList({ workouts, expandedId = null }) {
                             <button onClick={() => toggleExpanded(workout.id)}>
                                 {expandedWorkout === workout.id ? "Close" : "View"}
                             </button>
+                            <button onClick={() => onDelete(workout.id)}>Delete</button>
                         </div>
                         {expandedWorkout === workout.id && (
                             <div className="expanded-workout">
