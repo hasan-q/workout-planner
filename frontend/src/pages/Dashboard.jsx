@@ -67,8 +67,9 @@ export default function Dashboard() {
             const currDate = new Date(sorted[i].date);
 
             const diff = currDate - prevDate;
+            const maxStreakRange = ONE_DAY_MILLIS * 5;
 
-            if (diff <= ONE_DAY_MILLIS && diff >= 0) {
+            if (diff <= maxStreakRange && diff >= 0) {
                 currStreak++;
             } else {
                 currStreak = 1;
@@ -91,8 +92,7 @@ export default function Dashboard() {
         const lastWorkoutEpoch = lastWorkoutDate.getTime();
 
         const daysMillis = currentTimeMillis - lastWorkoutEpoch;
-        const streakCount = ONE_DAY_MILLIS * 3
-        const days = Math.round(daysMillis / streakCount);
+        const days = Math.round(daysMillis / ONE_DAY_MILLIS);
         return days;
     }
     const timeSinceLastWorkout = lastWorkout();
@@ -211,7 +211,9 @@ export default function Dashboard() {
                     data={exerciseProgress}
                 />
             </div>
-            <p className="exercise-name">Your progress on {randExerciseName}</p>
+            {randExerciseName && (
+                <p className="exercise-name">Your progress on {randExerciseName}</p>
+            )}
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
                 {recentWorkouts.length === 0 ? (
