@@ -147,9 +147,6 @@ export default function Dashboard() {
         }, [randExerciseId, allWorkouts]
     );
 
-    // Mark axes of chart (weight, date)
-    // name of the exercise it is displaying
-
     if (loadingTemplates) return <p>Loading Workouts...</p>
     if (loadingRecent) return <p>Loading History...</p>
     if (loadingAllWorkouts) return <p>Loading Stats...</p>
@@ -214,7 +211,7 @@ export default function Dashboard() {
                     data={exerciseProgress}
                 />
             </div>
-            <p>Today's randomly selected exercise: {randExerciseName}</p>
+            <p className="exercise-name">Your progress on {randExerciseName}</p>
             <div>
                 <h2 className="title-text">Recent Workouts</h2>
                 {recentWorkouts.length === 0 ? (

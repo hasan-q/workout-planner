@@ -58,7 +58,8 @@
 
 .stat-title {
     font-weight: 300;
-    margin: 4px;
+    margin: 0px;
+    margin-left: 4px;
 }
 
 .no-margin-p {
@@ -69,6 +70,18 @@
 
 .chart-container {
     height: 325px;
+}
+
+.exercise-name {
+    display: flex;
+    justify-content: center;
+    color: #303030;
+    font-weight: 200;
+    margin: 8px;
+}
+
+h1 {
+    margin: 15px;
 }
 
 h3 {
