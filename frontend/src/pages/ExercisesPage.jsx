@@ -81,7 +81,7 @@ export default function ExercisesPage() {
                         onTrack={handleSetExerciseToTrack}
                     />
 
-                    <h2>Track Progress</h2>
+                    <h2 className="title-text">Track Progress</h2>
                     {exerciseToTrack & progressData.length > 0 ? (
                         <div className="tracked-exercise" style={{ height: 300 }}>
                             <ProgressChart

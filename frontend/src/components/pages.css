@@ -12,7 +12,11 @@ h1 {
     font-weight: 400;
 }
 
-form {
+.form-container {
     display: flex;
-    
+    gap: 8px;
+    padding: 8px;
+    background-color: #F8F8F8;
+    max-width: 40%;
+    margin: 16px;
 }
