@@ -66,12 +66,14 @@ export default function ExercisesPage() {
 
     return (
         <div className="Exercises">
-            <ExerciseForm onSubmit={handleAddExercise} />
+            <div className="form-container">
+                <ExerciseForm onSubmit={handleAddExercise} />
+            </div>
 
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <>
+                <div className="exercises-list">
                     <ExercisesList
                         exercises={exercises}
                         onEdit={setSelectedExercise}
@@ -89,7 +91,7 @@ export default function ExercisesPage() {
                     ) : (
                         <p>Select an exercise to see your progress.</p>
                     )}
-                </>
+                </div>
             )}
 
             {selectedExercise && (
