@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getExercises, createExercise, updateExercise, deleteExercise } from "../api/exerciseService";
+import "../components/pages.css"
 import ExerciseForm from "../components/ExercisesForm";
 import ExercisesList from "../components/ExercisesList";
 import ProgressChart from "../components/ProgressChart";

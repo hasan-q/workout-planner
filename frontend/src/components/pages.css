@@ -11,3 +11,8 @@ h1 {
 .title-text {
     font-weight: 400;
 }
+
+form {
+    display: flex;
+    
+}
