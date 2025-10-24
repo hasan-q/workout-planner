@@ -12,19 +12,45 @@ h1 {
     font-weight: 400;
 }
 
-.form-container {
+.exercises {
+    padding: 16px;
+}
+
+form {
     display: flex;
+    flex-direction: row;
     gap: 8px;
     padding: 8px;
     background-color: #F8F8F8;
     max-width: 40%;
-    margin: 16px;
-}
-
-.exercises-list {
-    padding: 8px;
+    margin-bottom: 16px;
+    font-family: 'Karla', sans-serif;
 }
 
 table {
     border-spacing: 8px;
+    background-color: #F8F8F8;
+    width: 35%;
 }
+
+input {
+    gap:16px;
+}
+
+button {
+    align-self: flex-start;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    border: 1px solid #7e7e7e68;
+    font-family: 'Karla', sans-serif;
+    font-weight: 500;
+    padding: 6px;
+    color: #2C3838;
+    transform: scaleX(0.95);
+    transform-origin: left;
+}
+
+button:hover {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+/* Add: button styling for all forms */

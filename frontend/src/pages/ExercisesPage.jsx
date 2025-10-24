@@ -65,7 +65,8 @@ export default function ExercisesPage() {
     }
 
     return (
-        <div className="Exercises">
+        <div className="exercises">
+            <h2 className="title-text">Add a new exercise</h2>
             <div className="form-container">
                 <ExerciseForm onSubmit={handleAddExercise} />
             </div>
@@ -74,6 +75,7 @@ export default function ExercisesPage() {
                 <p>Loading...</p>
             ) : (
                 <div className="exercises-list">
+                    <h2 className="title-text">Your Exercises</h2>
                     <ExercisesList
                         exercises={exercises}
                         onEdit={setSelectedExercise}
