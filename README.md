@@ -6,9 +6,9 @@ A full stack gym workout planner built with Spring Boot, PostgreSQL, and React t
 ## Tech Stack
 
 - **Frontend:** React.js, Axios, Recharts, CSS
-- **Backend:** Java Spring Boot, Spring Security, JWT Authentication
+- **Backend:** Java Spring Boot, Spring Security, Maven, JWT Authentication
 - **Database:** PostgreSQL
-- **Dev Tools:** Postman, Docker, VS Code
+- **Dev Tools:** Postman, Visual Studio Code
 
 # Running the Program
 
@@ -20,3 +20,6 @@ First, make sure git is installed on your system, Then, clone this repository by
 4. Run `npm run dev` to start the frontend.
 5. Head over to `http://localhost:5173/` to view the program and start using it.
 
+## License
+
+This program is open source and available under the MIT License.
